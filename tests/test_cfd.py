@@ -4,4 +4,4 @@ from iterative_metrics.cfd import cfd
 
 
 def test_cfd():
-    assert cfd() == False
+    assert cfd() is None
