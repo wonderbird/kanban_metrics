@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 
 
-def cfd():
+def cumulative_flow_diagram():
     #%% Stack plot
     workdays = ['04.09.2023', '05.09.2023', '06.09.2023', '07.09.2023', '08.09.2023']
     metrics = {
@@ -17,7 +17,7 @@ def cfd():
 
     fig.autofmt_xdate(rotation=45)
 
-    ax.set_title('Cumulative flow diagram for Team ITerative')
+    ax.set_title('Cumulative Flow Diagram for Team ITerative')
     ax.set_xlabel('Date')
     ax.set_ylabel('Number of work items')
 

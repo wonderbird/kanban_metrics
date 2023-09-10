@@ -4,4 +4,4 @@ from iterative_metrics import cfd
 
 
 if __name__ == '__main__':
-    cfd.cfd()
+    cfd.cumulative_flow_diagram()
