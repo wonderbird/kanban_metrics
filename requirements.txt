@@ -1,4 +1,5 @@
 build
 hatch
 pytest
+pytest-datafiles
 matplotlib
