@@ -12,6 +12,12 @@ The software requires python3. You need some basic python programming experience
 pip install -r requirements.txt
 ```
 
+### Install package in editable mode
+
+```shell
+pip install --editable .
+```
+
 ### Render Cumulative Flow Diagram
 
 ```shell
