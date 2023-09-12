@@ -1,13 +1,23 @@
 import cv2 as cv
+import numpy as np
 import matplotlib.pyplot as plt
 
 
 def count_cards_in_image(path):
-    original_image = cv.imread(path)
+    # read HSV image
+    bgr_input = cv.imread(path)
+    hsv_input = cv.cvtColor(bgr_input, cv.COLOR_BGR2HSV)
 
-    hsv_image = cv.cvtColor(original_image, cv.COLOR_RGB2HSV)
-    black_white_image = cv.inRange(hsv_image, (0, 0, 100), (0, 0, 255))
-    plt.imshow(black_white_image, cmap="gray")
+    # remove non-title decorations - keep only black pixels with a value of 0
+    title_box_with_text = cv.inRange(hsv_input, (0, 0, 0), (0, 0, 1))
+
+    # remove text from title box
+    kernel = np.ones((5, 5), np.uint8)
+    title_box_enlarged = cv.dilate(title_box_with_text, kernel, iterations=1)
+    title_box = cv.erode(title_box_enlarged, kernel, iterations=1)
+
+    # display result
+    plt.imshow(title_box, cmap="gray")
     plt.show()
     return 0
 

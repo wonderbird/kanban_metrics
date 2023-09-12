@@ -4,3 +4,4 @@ pytest
 pytest-datafiles
 matplotlib
 opencv-python
+numpy
