@@ -18,6 +18,14 @@ pip install -r requirements.txt
 pip install --editable .
 ```
 
+### Count cards on screenshot of a kanban board
+
+- Replace the file [kanban_board.png](client-data%2Fkanban_board.png) with a current screenshot of the kanban board
+
+```shell
+python main.py
+```
+
 ### Render Cumulative Flow Diagram
 
 ```shell
@@ -28,7 +36,7 @@ If you run the script from the command line, then a window showing the diagram w
 
 If you run the `main.py` file from JetBrains PyCharm with **Scientific Mode** enabled in the **View** menu, then you can copy-paste the diagram.
 
-### Add data
+### Add data for Cumulative Flow Diagram
 
 - Edit the file [cumulative_flow_diagram.py](src/iterative_metrics/cumulative_flow_diagram.py)
 - Append a row with the next date to the variable `dates`
