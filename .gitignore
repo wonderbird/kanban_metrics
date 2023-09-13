@@ -1,3 +1,9 @@
+# client specific data can be sensitive to GDPR and intellectual property
+client-data/*
+
+# ensure the client-data/ folder is kept in source control and restored when cloning the repository
+!/**/.gitkeep
+
 # Created by https://www.toptal.com/developers/gitignore/api/python,pycharm+all
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,pycharm+all
 
