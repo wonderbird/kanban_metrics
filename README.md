@@ -5,6 +5,8 @@ Use cases:
 - Count number of cards on our team kanban board
 - Create a cumulative flow diagram for our team metrics
 
+![model.drawio.png](docs%2Fmodel.drawio.png)
+
 ## Usage Guide
 
 The software requires python3. You need some basic python programming experience to use the software.
