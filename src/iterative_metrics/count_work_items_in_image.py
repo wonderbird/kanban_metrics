@@ -1,8 +1,8 @@
-from .find_work_items_in import find_work_items_in
+from .find_work_items_in_image import find_work_items_in_image
 
 
 def count_work_items_in_image(image_file):
-    work_items = find_work_items_in(image_file)
+    work_items = find_work_items_in_image(image_file)
     return len(work_items)
 
 

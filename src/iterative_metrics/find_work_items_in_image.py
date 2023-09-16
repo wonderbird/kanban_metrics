@@ -4,7 +4,7 @@ import numpy as np
 from .WorkItem import WorkItem
 
 
-def find_work_items_in(image_file):
+def find_work_items_in_image(image_file):
     bgr_input = cv.imread(image_file.__str__())
     hsv_input = cv.cvtColor(bgr_input, cv.COLOR_BGR2HSV)
 
