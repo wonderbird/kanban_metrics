@@ -2,7 +2,7 @@
 
 Use cases:
 
-- Count number of cards on our team kanban board
+- Count number of work items on our team kanban board
 - Create a cumulative flow diagram for our team metrics
 
 ![model.drawio.png](docs%2Fmodel.drawio.png)
@@ -27,7 +27,7 @@ pip install -r requirements.txt
 pip install --editable .
 ```
 
-### Count cards on screenshot of a kanban board
+### Count work_items on screenshot of a kanban board
 
 - Replace the file [kanban_board.png](client-data%2Fkanban_board.png) with a current screenshot of the kanban board
 
