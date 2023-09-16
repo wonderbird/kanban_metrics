@@ -5,7 +5,7 @@ Use cases:
 - Count number of work items on our team kanban board
 - Create a cumulative flow diagram for our team metrics
 
-![model.drawio.png](docs%2Fmodel.drawio.png)
+![model.drawio.png](docs/model.drawio.png)
 
 ## Usage Guide
 
@@ -29,7 +29,7 @@ pip install --editable .
 
 ### Count work_items on screenshot of a kanban board
 
-- Replace the file [kanban_board.png](client-data%2Fkanban_board.png) with a current screenshot of the kanban board
+- Replace the file [kanban_board.png](client-data/kanban_board.png) with a current screenshot of the kanban board
 
 ```shell
 python main.py
