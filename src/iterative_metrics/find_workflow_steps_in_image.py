@@ -1,6 +1,7 @@
 import cv2 as cv
 import numpy as np
 
+from iterative_metrics.rectangle import Rectangle
 
 DEBUG = False
 
@@ -26,8 +27,13 @@ def find_workflow_steps_in_image(image_file):
     for index, contour in enumerate(contours):
         polygon = cv.approxPolyDP(contour, 3, True)
         bounding_rectangles[index] = cv.boundingRect(polygon)
-        area = bounding_rectangles[index][2] * bounding_rectangles[index][3]
-        areas[index] = (index, area)
+        rectangle = Rectangle(
+            bounding_rectangles[index][0],
+            bounding_rectangles[index][1],
+            bounding_rectangles[index][2],
+            bounding_rectangles[index][3],
+        )
+        areas[index] = (index, rectangle.area)
 
     areas_descending = sorted(areas, key=lambda t: t[1], reverse=True)
     largest_bounding_rectangles = list(
