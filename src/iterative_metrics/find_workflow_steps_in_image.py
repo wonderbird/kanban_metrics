@@ -30,9 +30,8 @@ def find_workflow_steps_in_image(image_file):
         areas[index] = (index, area)
 
     areas_descending = sorted(areas, key=lambda t: t[1], reverse=True)
-    number_of_columns = 1
     largest_bounding_rectangles = list(
-        map(lambda x: bounding_rectangles[x[0]], areas_descending[0:number_of_columns])
+        map(lambda x: bounding_rectangles[x[0]], areas_descending)
     )
 
     debug_show_rectangles_in_image(bgr_input, largest_bounding_rectangles)
@@ -59,3 +58,9 @@ def debug_show_rectangles_in_image(image, rectangles):
     cv.imshow("Debugging", image)
     cv.waitKey(0)
     cv.destroyAllWindows()
+
+
+if __name__ == "__main__":
+    find_workflow_steps_in_image(
+        "../../tests/data/2_workflow_steps_width_240px_height_910px_resolution_96dpi.png"
+    )
