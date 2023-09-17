@@ -26,36 +26,31 @@ def find_workflow_steps_in_image(image_file):
     areas = [(None, None)] * len(contours)
     for index, contour in enumerate(contours):
         polygon = cv.approxPolyDP(contour, 3, True)
-        bounding_rectangles[index] = cv.boundingRect(polygon)
-        rectangle = Rectangle(
-            bounding_rectangles[index][0],
-            bounding_rectangles[index][1],
-            bounding_rectangles[index][2],
-            bounding_rectangles[index][3],
+        bounding_rectangle = cv.boundingRect(polygon)
+        bounding_rectangles[index] = Rectangle(
+            bounding_rectangle[0],
+            bounding_rectangle[1],
+            bounding_rectangle[2],
+            bounding_rectangle[3],
         )
-        areas[index] = (index, rectangle.area)
+        areas[index] = (index, bounding_rectangles[index].area)
 
-    areas_descending = sorted(areas, key=lambda t: t[1], reverse=True)
-    largest_bounding_rectangles = list(
-        map(lambda x: bounding_rectangles[x[0]], areas_descending)
-    )
+    debug_show_rectangles_in_image(bgr_input, bounding_rectangles)
 
-    debug_show_rectangles_in_image(bgr_input, largest_bounding_rectangles)
-
-    return len(largest_bounding_rectangles)
+    return len(bounding_rectangles)
 
 
-def debug_show_rectangles_in_image(image, rectangles):
+def debug_show_rectangles_in_image(image, bounding_rectangles):
     if not DEBUG:
         return
 
-    for bounding_rectangle in rectangles:
+    for bounding_rectangle in bounding_rectangles:
         cv.rectangle(
             image,
-            (int(bounding_rectangle[0]), int(bounding_rectangle[1])),
+            (bounding_rectangle.x, bounding_rectangle.y),
             (
-                int(bounding_rectangle[0]) + int(bounding_rectangle[2]),
-                int(bounding_rectangle[1]) + int(bounding_rectangle[3]),
+                bounding_rectangle.x + bounding_rectangle.width,
+                bounding_rectangle.y + bounding_rectangle.height,
             ),
             (0, 0, 255),
             2,
