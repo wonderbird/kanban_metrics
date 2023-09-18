@@ -8,3 +8,8 @@ class Rectangle:
     @property
     def area(self):
         return self.width * self.height
+
+    def intersects(self, other):
+        return not (
+            other.x + other.width < self.x or other.x > self.x + self.width
+        ) and not (other.y + other.height < self.y or other.y > self.y + self.height)

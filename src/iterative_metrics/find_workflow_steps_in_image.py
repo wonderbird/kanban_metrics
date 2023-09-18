@@ -14,30 +14,49 @@ def find_workflow_steps_in_image(image_file):
     image = hsv_input
     image = cv.inRange(hsv_input, (0, 0, 200), (0, 0, 255))
 
+    # remove the text and other small artifacts
     kernel = np.ones((3, 3), np.uint8)
     image = cv.erode(image, kernel, iterations=2)
     image = cv.dilate(image, kernel, iterations=2)
 
-    # identify the bounding borders of the filled boxes
+    # identify the borders in the image
     image = cv.Canny(image, 50, 200)
 
+    # identify outer contours to count number of boxes
     contours, _ = cv.findContours(image, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
-    bounding_rectangles = [None] * len(contours)
-    areas = [(None, None)] * len(contours)
+
+    # identify bounding rectangles
+    bounding_rectangles = []
     for index, contour in enumerate(contours):
         polygon = cv.approxPolyDP(contour, 3, True)
         bounding_rectangle = cv.boundingRect(polygon)
-        bounding_rectangles[index] = Rectangle(
-            bounding_rectangle[0],
-            bounding_rectangle[1],
-            bounding_rectangle[2],
-            bounding_rectangle[3],
+        bounding_rectangles.append(
+            Rectangle(
+                bounding_rectangle[0],
+                bounding_rectangle[1],
+                bounding_rectangle[2],
+                bounding_rectangle[3],
+            )
         )
-        areas[index] = (index, bounding_rectangles[index].area)
 
-    debug_show_rectangles_in_image(bgr_input, bounding_rectangles)
+    sorted_rectangles = sorted(
+        bounding_rectangles, key=lambda rectangle: rectangle.area, reverse=True
+    )
 
-    return len(bounding_rectangles)
+    # for overlapping bounding rectangles, only keep the larger one
+    largest_rectangles = []
+    for rectangle in sorted_rectangles:
+        if not any(
+            [
+                rectangle.intersects(large_rectangle)
+                for large_rectangle in largest_rectangles
+            ]
+        ):
+            largest_rectangles.append(rectangle)
+
+    debug_show_rectangles_in_image(bgr_input, largest_rectangles)
+
+    return len(largest_rectangles)
 
 
 def debug_show_rectangles_in_image(image, bounding_rectangles):
