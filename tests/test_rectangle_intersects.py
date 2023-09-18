@@ -4,19 +4,6 @@ from iterative_metrics.rectangle import Rectangle
 
 
 @pytest.mark.parametrize(
-    "width, height, expected_area",
-    [
-        (0, 0, 0),
-        (1, 1, 1),
-        (2, 3, 6),
-    ],
-)
-def test_rectangle_area_for_width_height_expected(width, height, expected_area):
-    rectangle = Rectangle(0, 0, width, height)
-    assert rectangle.area == expected_area
-
-
-@pytest.mark.parametrize(
     "first, second",
     [
         (Rectangle(0, 0, 1, 1), Rectangle(2, 0, 1, 1)),
@@ -31,10 +18,7 @@ def test_rectangle_area_for_width_height_expected(width, height, expected_area):
         "first is below second",
     ],
 )
-def test_rectangle_intersects_when_non_intersecting_then_return_false(
-    first,
-    second,
-):
+def test_when_not_intersecting(first, second):
     assert first.intersects(second) == False
 
 
@@ -61,7 +45,7 @@ def test_rectangle_intersects_when_non_intersecting_then_return_false(
         "second contains bottom right corner of first",
     ],
 )
-def test_rectangle_intersects_when_corner_overlaps_then_return_true(
+def test_when_corner_intersects(
     first,
     second,
 ):
@@ -91,7 +75,7 @@ def test_rectangle_intersects_when_corner_overlaps_then_return_true(
         "second contains right side of first",
     ],
 )
-def test_rectangle_intersects_when_first_contains_side_of_second_then_return_true(
+def test_when_one_contains_side_of_other(
     first,
     second,
 ):
@@ -113,7 +97,7 @@ def test_rectangle_intersects_when_first_contains_side_of_second_then_return_tru
         "first overlaps middle of second vertically",
     ],
 )
-def test_rectangle_intersects_when_one_overlaps_middle_of_another_then_return_true(
+def test_when_one_overlaps_middle_of_other(
     first,
     second,
 ):
@@ -131,7 +115,7 @@ def test_rectangle_intersects_when_one_overlaps_middle_of_another_then_return_tr
         "second contains first",
     ],
 )
-def test_rectangle_intersects_when_one_contains_another_then_return_true(
+def test_when_one_contains_other(
     first,
     second,
 ):
