@@ -1,8 +1,6 @@
 from pathlib import Path
 import pytest
 
-from .context import src
-from src import iterative_metrics
 from iterative_metrics.find_workflow_steps_in_image import find_workflow_steps_in_image
 
 
@@ -18,7 +16,8 @@ FIXTURE_DIR = Path(__file__).parent.resolve() / "data"
     ],
 )
 def test_find_workflow_steps_in_image(expected, filename):
-    actual = find_workflow_steps_in_image(FIXTURE_DIR / filename)
+    workflow_steps = find_workflow_steps_in_image(FIXTURE_DIR / filename)
+    actual = len(workflow_steps)
     assert expected == actual
 
 
@@ -32,5 +31,6 @@ def test_find_workflow_steps_in_image(expected, filename):
     ],
 )
 def test_find_workflow_steps_in_image_with_artifact(expected, filename):
-    actual = find_workflow_steps_in_image(FIXTURE_DIR / filename)
+    workflow_steps = find_workflow_steps_in_image(FIXTURE_DIR / filename)
+    actual = len(workflow_steps)
     assert expected == actual

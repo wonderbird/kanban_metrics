@@ -2,6 +2,7 @@ import cv2 as cv
 import numpy as np
 
 from iterative_metrics.rectangle import Rectangle
+from iterative_metrics.workflow_step import WorkflowStep
 
 DEBUG = False
 
@@ -56,7 +57,7 @@ def find_workflow_steps_in_image(image_file):
 
     debug_show_rectangles_in_image(bgr_input, largest_rectangles)
 
-    return len(largest_rectangles)
+    return [WorkflowStep] * len(largest_rectangles)
 
 
 def debug_show_rectangles_in_image(image, bounding_rectangles):

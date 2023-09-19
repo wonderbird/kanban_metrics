@@ -1,7 +1,7 @@
 import cv2 as cv
 import numpy as np
 
-from .WorkItem import WorkItem
+from .work_item import WorkItem
 
 
 def find_work_items_in_image(image_file):
