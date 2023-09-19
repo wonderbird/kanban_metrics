@@ -1,8 +1,6 @@
 from pathlib import Path
 import pytest
 
-from .context import src
-from src import iterative_metrics
 from iterative_metrics.find_work_items_in_image import find_work_items_in_image
 
 
