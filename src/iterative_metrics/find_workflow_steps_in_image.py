@@ -55,9 +55,14 @@ def find_workflow_steps_in_image(image_file):
         ):
             largest_rectangles.append(rectangle)
 
+    # convert largest rectangles to workflow steps
+    workflow_steps = []
+    for rectangle in largest_rectangles:
+        workflow_steps.append(WorkflowStep(rectangle))
+
     debug_show_rectangles_in_image(bgr_input, largest_rectangles)
 
-    return [WorkflowStep] * len(largest_rectangles)
+    return workflow_steps
 
 
 def debug_show_rectangles_in_image(image, bounding_rectangles):

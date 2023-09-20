@@ -1,6 +1,7 @@
 import cv2 as cv
 import numpy as np
 
+from .rectangle import Rectangle
 from .work_item import WorkItem
 
 
@@ -32,4 +33,23 @@ def find_work_items_in_image(image_file):
     # identify outer contours to count number of boxes
     contours, _ = cv.findContours(borders, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_NONE)
 
-    return [WorkItem] * len(contours)
+    # identify bounding rectangles
+    bounding_rectangles = []
+    for index, contour in enumerate(contours):
+        polygon = cv.approxPolyDP(contour, 3, True)
+        bounding_rectangle = cv.boundingRect(polygon)
+        bounding_rectangles.append(
+            Rectangle(
+                bounding_rectangle[0],
+                bounding_rectangle[1],
+                bounding_rectangle[2],
+                bounding_rectangle[3],
+            )
+        )
+
+    # convert bounding rectangles to work items
+    work_items = []
+    for bounding_rectangle in bounding_rectangles:
+        work_items.append(WorkItem(bounding_rectangle))
+
+    return work_items

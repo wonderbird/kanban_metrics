@@ -13,3 +13,6 @@ class Rectangle:
         return not (
             other.x + other.width < self.x or other.x > self.x + self.width
         ) and not (other.y + other.height < self.y or other.y > self.y + self.height)
+
+    def __repr__(self):
+        return f"Rectangle(x={self.x}, y={self.y}, width={self.width}, height={self.height})"
