@@ -13,23 +13,7 @@ def find_work_items_by_workflow_steps(image_file):
 
     for work_item in work_items:
         for i, workflow_step in enumerate(workflow_steps):
-            is_x_in_workflow_step = (
-                workflow_step.bounding_rectangle.x
-                <= work_item.bounding_rectangle.x
-                <= workflow_step.bounding_rectangle.x
-                + workflow_step.bounding_rectangle.width
-            )
-            is_y_in_workflow_step = (
-                workflow_step.bounding_rectangle.y
-                <= work_item.bounding_rectangle.y
-                <= workflow_step.bounding_rectangle.y
-                + workflow_step.bounding_rectangle.height
-            )
-            is_work_item_in_workflow_step = (
-                is_x_in_workflow_step and is_y_in_workflow_step
-            )
-
-            if is_work_item_in_workflow_step:
+            if workflow_step.contains(work_item):
                 result[i] += 1
                 break
 
