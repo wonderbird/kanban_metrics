@@ -53,7 +53,4 @@ def find_workflow_steps_in_image(image_file):
 
 
 if __name__ == "__main__":
-    result = find_workflow_steps_in_image(
-        "../../tests/data/2_workflow_steps_width_240px_height_910px_resolution_96dpi.png"
-    )
-    print(result)
+    print(find_workflow_steps_in_image("../../client-data/kanban_board.png"))

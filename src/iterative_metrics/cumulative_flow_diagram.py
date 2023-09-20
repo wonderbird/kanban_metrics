@@ -23,7 +23,26 @@ def cumulative_flow_diagram():
         "20.09.23 16:30",
     ]
     metrics = {
-        "done                ": [0, 8, 8, 8, 8, 8, 8, 8, 8, 18, 18, 20, 20, 20, 20, 20, 20, 20],
+        "done                ": [
+            0,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            8,
+            18,
+            18,
+            20,
+            20,
+            20,
+            20,
+            20,
+            20,
+            20,
+        ],
         "both sharing columns": [8, 0, 0, 0, 0, 1, 3, 4, 6, 1, 2, 0, 0, 0, 2, 2, 3, 5],
         "doing cobo          ": [0, 2, 2, 3, 3, 3, 3, 3, 2, 2, 1, 2, 2, 3, 3, 3, 3, 2],
         "doing other         ": [1, 2, 3, 3, 3, 2, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 1],
@@ -43,3 +62,7 @@ def show_cumulative_flow_diagram(dates, metrics):
     ax.set_ylabel("Number of work items")
     ax.legend(loc="upper left", reverse=True)
     plt.show()
+
+
+if __name__ == "__main__":
+    cumulative_flow_diagram()
