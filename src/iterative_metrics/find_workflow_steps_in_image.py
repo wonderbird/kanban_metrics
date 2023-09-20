@@ -14,19 +14,18 @@ def find_workflow_steps_in_image(image_file):
     bgr_input = cv.imread(image_file.__str__())
     hsv_input = cv.cvtColor(bgr_input, cv.COLOR_BGR2HSV)
 
-    image = hsv_input
-    image = cv.inRange(hsv_input, (0, 0, 200), (0, 0, 255))
+    boxes_with_text = cv.inRange(hsv_input, (0, 0, 200), (0, 0, 255))
 
     # remove the text and other small artifacts
     kernel = np.ones((3, 3), np.uint8)
-    image = cv.erode(image, kernel, iterations=2)
-    image = cv.dilate(image, kernel, iterations=2)
+    boxes = cv.erode(boxes_with_text, kernel, iterations=2)
+    boxes = cv.dilate(boxes, kernel, iterations=2)
 
     # identify the borders in the image
-    image = cv.Canny(image, 50, 200)
+    borders = cv.Canny(boxes, 50, 200)
 
     # identify outer contours to count number of boxes
-    contours, _ = cv.findContours(image, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
+    contours, _ = cv.findContours(borders, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
 
     # identify bounding rectangles
     bounding_rectangles = []
