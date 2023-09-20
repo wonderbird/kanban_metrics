@@ -34,3 +34,14 @@ def test_find_workflow_steps_in_image_with_artifact(expected, filename):
     workflow_steps = find_workflow_steps_in_image(FIXTURE_DIR / filename)
     actual = len(workflow_steps)
     assert expected == actual
+
+
+def test_result_should_be_sorted_from_left_to_right():
+    workflow_steps = find_workflow_steps_in_image(
+        FIXTURE_DIR / "2_workflow_steps_width_240px_height_910px_resolution_96dpi.png"
+    )
+    assert (
+        workflow_steps[0].bounding_rectangle.x
+        + workflow_steps[0].bounding_rectangle.width
+        < workflow_steps[1].bounding_rectangle.x
+    )

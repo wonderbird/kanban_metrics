@@ -40,11 +40,10 @@ def find_workflow_steps_in_image(image_file):
             )
         )
 
+    # for overlapping bounding rectangles, only keep the larger one
     sorted_rectangles = sorted(
         bounding_rectangles, key=lambda rectangle: rectangle.area, reverse=True
     )
-
-    # for overlapping bounding rectangles, only keep the larger one
     largest_rectangles = []
     for rectangle in sorted_rectangles:
         if not any(
@@ -54,6 +53,9 @@ def find_workflow_steps_in_image(image_file):
             ]
         ):
             largest_rectangles.append(rectangle)
+
+    # sort rectangles from left to right
+    largest_rectangles = sorted(largest_rectangles, key=lambda rectangle: rectangle.x)
 
     # convert largest rectangles to workflow steps
     workflow_steps = []
