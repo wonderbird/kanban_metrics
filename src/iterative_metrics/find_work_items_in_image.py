@@ -1,6 +1,7 @@
 import cv2 as cv
 import numpy as np
 
+from .debug_image import debug_show_rectangles_in_image
 from .find_bounding_rectangles_of_largest_closed_shapes import (
     find_bounding_rectangles_of_largest_closed_shapes,
 )
@@ -35,5 +36,7 @@ def find_work_items_in_image(image_file):
     work_items = []
     for bounding_rectangle in bounding_rectangles:
         work_items.append(WorkItem(bounding_rectangle))
+
+    debug_show_rectangles_in_image(bgr_input, bounding_rectangles)
 
     return work_items

@@ -1,7 +1,7 @@
 import cv2 as cv
 
 
-DEBUG = True
+DEBUG = False
 
 
 def debug_show_rectangles_in_image(image, rectangles):
