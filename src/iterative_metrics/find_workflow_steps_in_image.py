@@ -1,10 +1,10 @@
 import cv2 as cv
 import numpy as np
 
+from iterative_metrics.debug_image import debug_show_rectangles_in_image
 from iterative_metrics.find_bounding_rectangles_of_largest_closed_shapes import (
     find_bounding_rectangles_of_largest_closed_shapes,
 )
-from iterative_metrics.rectangle import Rectangle
 from iterative_metrics.workflow_step import WorkflowStep
 
 DEBUG = False
@@ -53,28 +53,8 @@ def find_workflow_steps_in_image(image_file):
     return workflow_steps
 
 
-def debug_show_rectangles_in_image(image, bounding_rectangles):
-    if not DEBUG:
-        return
-
-    for bounding_rectangle in bounding_rectangles:
-        cv.rectangle(
-            image,
-            (bounding_rectangle.x, bounding_rectangle.y),
-            (
-                bounding_rectangle.x + bounding_rectangle.width,
-                bounding_rectangle.y + bounding_rectangle.height,
-            ),
-            (0, 0, 255),
-            2,
-        )
-
-    cv.imshow("Debugging", image)
-    cv.waitKey(0)
-    cv.destroyAllWindows()
-
-
 if __name__ == "__main__":
-    find_workflow_steps_in_image(
+    result = find_workflow_steps_in_image(
         "../../tests/data/2_workflow_steps_width_240px_height_910px_resolution_96dpi.png"
     )
+    print(result)
