@@ -1,10 +1,12 @@
 from pathlib import Path
 import pytest
 
-from iterative_metrics.find_workflow_steps_in_image import find_workflow_steps_in_image
+from iterative_metrics.adapters.outbound.find_workflow_steps_in_image import (
+    find_workflow_steps_in_image,
+)
 
 
-FIXTURE_DIR = Path(__file__).parent.resolve() / "data"
+FIXTURE_DIR = Path(__file__).parent.parent.parent.resolve() / "data"
 
 
 @pytest.mark.parametrize(

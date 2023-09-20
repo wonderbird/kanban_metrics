@@ -1,5 +1,9 @@
-from iterative_metrics.find_work_items_in_image import find_work_items_in_image
-from iterative_metrics.find_workflow_steps_in_image import find_workflow_steps_in_image
+from iterative_metrics.adapters.outbound.find_work_items_in_image import (
+    find_work_items_in_image,
+)
+from iterative_metrics.adapters.outbound.find_workflow_steps_in_image import (
+    find_workflow_steps_in_image,
+)
 
 
 def find_work_items_by_workflow_steps(image_file):

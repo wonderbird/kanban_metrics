@@ -1,7 +1,9 @@
 import cv2 as cv
 import numpy as np
 
-from iterative_metrics.debug_image import debug_show_rectangles_in_image
+from iterative_metrics.adapters.outbound.debug_image import (
+    debug_show_rectangles_in_image,
+)
 from iterative_metrics.find_bounding_rectangles_of_largest_closed_shapes import (
     find_bounding_rectangles_of_largest_closed_shapes,
 )
@@ -53,4 +55,4 @@ def find_workflow_steps_in_image(image_file):
 
 
 if __name__ == "__main__":
-    print(find_workflow_steps_in_image("../../client-data/kanban_board.png"))
+    print(find_workflow_steps_in_image("../../../../client-data/kanban_board.png"))
