@@ -1,7 +1,7 @@
 from pathlib import Path
 
-import src.iterative_metrics.cumulative_flow_diagram as diag
-import src.iterative_metrics.count_work_items_in_image as img
+import iterative_metrics.adapters.inbound.cumulative_flow_diagram as diag
+import iterative_metrics.adapters.inbound.count_work_items_in_image as img
 
 
 if __name__ == "__main__":

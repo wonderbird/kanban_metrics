@@ -39,7 +39,7 @@ python main.py
 
 #### Update input data
 
-- Edit the file [cumulative_flow_diagram.py](src/iterative_metrics/cumulative_flow_diagram.py)
+- Edit the file [cumulative_flow_diagram.py](src/iterative_metrics/adapters/inbound/cumulative_flow_diagram.py)
 - Append a row with the next date to the variable `dates`
 - Append the data from the board to every array in the `metrics` map
 - Save the file

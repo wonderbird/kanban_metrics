@@ -25,4 +25,4 @@ def find_work_items_by_workflow_steps(image_file):
 
 
 if __name__ == "__main__":
-    print(find_work_items_by_workflow_steps("../../client-data/kanban_board.png"))
+    print(find_work_items_by_workflow_steps("../../../../client-data/kanban_board.png"))
