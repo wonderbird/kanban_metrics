@@ -1,11 +1,11 @@
 import cv2 as cv
 import numpy as np
 
-from .debug_image import debug_show_rectangles_in_image
-from .find_bounding_rectangles_of_largest_closed_shapes import (
+from iterative_metrics.debug_image import debug_show_rectangles_in_image
+from iterative_metrics.find_bounding_rectangles_of_largest_closed_shapes import (
     find_bounding_rectangles_of_largest_closed_shapes,
 )
-from .work_item import WorkItem
+from iterative_metrics.work_item import WorkItem
 
 
 def find_work_items_in_image(image_file):
@@ -13,7 +13,9 @@ def find_work_items_in_image(image_file):
     hsv_input = cv.cvtColor(bgr_input, cv.COLOR_BGR2HSV)
 
     # identify the metrics area (green box)
-    boxes_with_text = cv.inRange(hsv_input, (35, 50, 50), (70, 255, 255))
+    lower_boundary = np.array([35, 50, 50])
+    upper_boundary = np.array([70, 255, 255])
+    boxes_with_text = cv.inRange(hsv_input, lower_boundary, upper_boundary)
 
     # remove the text and other small artifacts
     boxes = boxes_with_text
@@ -40,3 +42,7 @@ def find_work_items_in_image(image_file):
     debug_show_rectangles_in_image(bgr_input, bounding_rectangles)
 
     return work_items
+
+
+if __name__ == "__main__":
+    print(find_work_items_in_image("../../client-data/kanban_board.png"))

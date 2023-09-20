@@ -7,17 +7,16 @@ from iterative_metrics.find_bounding_rectangles_of_largest_closed_shapes import 
 )
 from iterative_metrics.workflow_step import WorkflowStep
 
-DEBUG = False
-
 
 def find_workflow_steps_in_image(image_file):
-    # TODO fix problems reported by PyCharm
-
     # read HSV image
     bgr_input = cv.imread(image_file.__str__())
     hsv_input = cv.cvtColor(bgr_input, cv.COLOR_BGR2HSV)
 
-    boxes_with_text = cv.inRange(hsv_input, (0, 0, 200), (0, 0, 255))
+    # find the workflow step boxes
+    lower_boundary = np.array([0, 0, 200])
+    upper_boundary = np.array([0, 0, 255])
+    boxes_with_text = cv.inRange(hsv_input, lower_boundary, upper_boundary)
 
     # remove the text and other small artifacts
     kernel = np.ones((3, 3), np.uint8)
