@@ -32,7 +32,5 @@ def find_work_items_by_workflow_steps(image_file):
             if is_work_item_in_workflow_step:
                 result[i] += 1
                 break
-        pass
 
-    result[-1] = len(work_items)
     return result
