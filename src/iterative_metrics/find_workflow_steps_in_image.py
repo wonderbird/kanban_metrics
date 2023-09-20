@@ -1,6 +1,9 @@
 import cv2 as cv
 import numpy as np
 
+from iterative_metrics.find_bounding_rectangles_of_largest_closed_shapes import (
+    find_bounding_rectangles_of_largest_closed_shapes,
+)
 from iterative_metrics.rectangle import Rectangle
 from iterative_metrics.workflow_step import WorkflowStep
 
@@ -21,25 +24,7 @@ def find_workflow_steps_in_image(image_file):
     boxes = cv.erode(boxes_with_text, kernel, iterations=2)
     boxes = cv.dilate(boxes, kernel, iterations=2)
 
-    # identify the borders in the image
-    borders = cv.Canny(boxes, 50, 200)
-
-    # identify outer contours to count number of boxes
-    contours, _ = cv.findContours(borders, cv.RETR_EXTERNAL, cv.CHAIN_APPROX_SIMPLE)
-
-    # identify bounding rectangles
-    bounding_rectangles = []
-    for index, contour in enumerate(contours):
-        polygon = cv.approxPolyDP(contour, 3, True)
-        bounding_rectangle = cv.boundingRect(polygon)
-        bounding_rectangles.append(
-            Rectangle(
-                bounding_rectangle[0],
-                bounding_rectangle[1],
-                bounding_rectangle[2],
-                bounding_rectangle[3],
-            )
-        )
+    bounding_rectangles = find_bounding_rectangles_of_largest_closed_shapes(boxes)
 
     # for overlapping bounding rectangles, only keep the larger one
     sorted_rectangles = sorted(
