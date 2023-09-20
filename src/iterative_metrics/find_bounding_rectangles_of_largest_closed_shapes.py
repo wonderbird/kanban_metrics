@@ -1,5 +1,6 @@
 import cv2 as cv
-from iterative_metrics.rectangle import Rectangle
+
+from iterative_metrics.domain.rectangle import Rectangle
 
 
 def find_bounding_rectangles_of_largest_closed_shapes(boxes):

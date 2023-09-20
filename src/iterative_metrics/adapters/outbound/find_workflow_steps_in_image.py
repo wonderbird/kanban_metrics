@@ -4,10 +4,10 @@ import numpy as np
 from iterative_metrics.adapters.outbound.debug_image import (
     debug_show_rectangles_in_image,
 )
+from iterative_metrics.domain.workflow_step import WorkflowStep
 from iterative_metrics.find_bounding_rectangles_of_largest_closed_shapes import (
     find_bounding_rectangles_of_largest_closed_shapes,
 )
-from iterative_metrics.workflow_step import WorkflowStep
 
 
 def find_workflow_steps_in_image(image_file):

@@ -1,6 +1,6 @@
 import pytest
 
-from iterative_metrics.rectangle import Rectangle
+from iterative_metrics.domain.rectangle import Rectangle
 
 
 @pytest.mark.parametrize(
@@ -18,8 +18,8 @@ from iterative_metrics.rectangle import Rectangle
         "first is below second",
     ],
 )
-def test_when_not_overlapping(first, second):
-    assert not first.contains(second)
+def test_when_not_intersecting(first, second):
+    assert not first.intersects(second)
 
 
 @pytest.mark.parametrize(
@@ -45,11 +45,11 @@ def test_when_not_overlapping(first, second):
         "second contains bottom right corner of first",
     ],
 )
-def test_when_overlaps_partially(
+def test_when_corner_intersects(
     first,
     second,
 ):
-    assert not first.contains(second)
+    assert first.intersects(second)
 
 
 @pytest.mark.parametrize(
@@ -75,11 +75,11 @@ def test_when_overlaps_partially(
         "second contains right side of first",
     ],
 )
-def test_when_only_one_side_overlaps_partially(
+def test_when_one_contains_side_of_other(
     first,
     second,
 ):
-    assert not first.contains(second)
+    assert first.intersects(second)
 
 
 @pytest.mark.parametrize(
@@ -97,16 +97,26 @@ def test_when_only_one_side_overlaps_partially(
         "first overlaps middle of second vertically",
     ],
 )
-def test_when_middle_overlaps_partially(
+def test_when_one_overlaps_middle_of_other(
     first,
     second,
 ):
-    assert not first.contains(second)
+    assert first.intersects(second)
 
 
-def test_when_first_contains_second():
-    assert Rectangle(0, 0, 4, 4).contains(Rectangle(1, 1, 2, 2))
-
-
-def test_when_second_contains_first():
-    assert not Rectangle(1, 1, 2, 2).contains(Rectangle(0, 0, 4, 4))
+@pytest.mark.parametrize(
+    "first, second",
+    [
+        (Rectangle(0, 0, 4, 4), Rectangle(1, 1, 2, 2)),
+        (Rectangle(1, 1, 2, 2), Rectangle(0, 0, 4, 4)),
+    ],
+    ids=[
+        "first contains second",
+        "second contains first",
+    ],
+)
+def test_when_one_contains_other(
+    first,
+    second,
+):
+    assert first.intersects(second)

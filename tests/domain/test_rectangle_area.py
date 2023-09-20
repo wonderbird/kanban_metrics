@@ -1,6 +1,6 @@
 import pytest
 
-from iterative_metrics.rectangle import Rectangle
+from iterative_metrics.domain.rectangle import Rectangle
 
 
 @pytest.mark.parametrize(
