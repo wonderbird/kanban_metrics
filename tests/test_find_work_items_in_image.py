@@ -20,4 +20,4 @@ FIXTURE_DIR = Path(__file__).parent.resolve() / "data"
 def test_find_work_items_in_image(expected, filename):
     work_items = find_work_items_in_image(FIXTURE_DIR / filename)
     actual = len(work_items)
-    assert expected == actual
+    assert actual == expected

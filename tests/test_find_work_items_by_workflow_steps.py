@@ -29,6 +29,3 @@ FIXTURE_DIR = Path(__file__).parent.resolve() / "data"
 def test_when_(expected, filename):
     actual = find_work_items_by_workflow_steps(FIXTURE_DIR / filename)
     assert actual == expected
-
-
-# TODO: all expected and actual values in the assertions should be swapped

@@ -8,6 +8,8 @@ DEBUG = False
 
 
 def find_workflow_steps_in_image(image_file):
+    # TODO fix problems reported by PyCharm
+
     # read HSV image
     bgr_input = cv.imread(image_file.__str__())
     hsv_input = cv.cvtColor(bgr_input, cv.COLOR_BGR2HSV)

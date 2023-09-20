@@ -4,13 +4,13 @@ from iterative_metrics.rectangle import Rectangle
 
 
 @pytest.mark.parametrize(
-    "width, height, expected_area",
+    "expected_area, width, height",
     [
         (0, 0, 0),
         (1, 1, 1),
-        (2, 3, 6),
+        (6, 2, 3),
     ],
 )
-def test_rectangle_area_for_width_height_expected(width, height, expected_area):
+def test_rectangle_area_for_width_height_expected(expected_area, width, height):
     rectangle = Rectangle(0, 0, width, height)
     assert rectangle.area == expected_area

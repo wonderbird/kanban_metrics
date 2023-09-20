@@ -19,4 +19,4 @@ FIXTURE_DIR = Path(__file__).parent.resolve() / "data"
 )
 def test_count_work_items_in_image(expected, filename):
     actual = count_work_items_in_image(FIXTURE_DIR / filename)
-    assert expected == actual
+    assert actual == expected

@@ -18,22 +18,16 @@ FIXTURE_DIR = Path(__file__).parent.resolve() / "data"
 def test_find_workflow_steps_in_image(expected, filename):
     workflow_steps = find_workflow_steps_in_image(FIXTURE_DIR / filename)
     actual = len(workflow_steps)
-    assert expected == actual
+    assert actual == expected
 
 
-@pytest.mark.parametrize(
-    "expected, filename",
-    [
-        (
-            2,
-            "2_workflow_steps_with_artifact_width_240px_height_910px_resolution_96dpi.png",
-        ),
-    ],
-)
-def test_find_workflow_steps_in_image_with_artifact(expected, filename):
-    workflow_steps = find_workflow_steps_in_image(FIXTURE_DIR / filename)
+def test_find_workflow_steps_in_image_with_artifact():
+    workflow_steps = find_workflow_steps_in_image(
+        FIXTURE_DIR
+        / "2_workflow_steps_with_artifact_width_240px_height_910px_resolution_96dpi.png"
+    )
     actual = len(workflow_steps)
-    assert expected == actual
+    assert actual == 2
 
 
 def test_result_should_be_sorted_from_left_to_right():

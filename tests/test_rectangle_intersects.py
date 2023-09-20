@@ -19,7 +19,7 @@ from iterative_metrics.rectangle import Rectangle
     ],
 )
 def test_when_not_intersecting(first, second):
-    assert first.intersects(second) == False
+    assert not first.intersects(second)
 
 
 @pytest.mark.parametrize(
@@ -49,7 +49,7 @@ def test_when_corner_intersects(
     first,
     second,
 ):
-    assert first.intersects(second) == True
+    assert first.intersects(second)
 
 
 @pytest.mark.parametrize(
@@ -79,7 +79,7 @@ def test_when_one_contains_side_of_other(
     first,
     second,
 ):
-    assert first.intersects(second) == True
+    assert first.intersects(second)
 
 
 @pytest.mark.parametrize(
@@ -101,7 +101,7 @@ def test_when_one_overlaps_middle_of_other(
     first,
     second,
 ):
-    assert first.intersects(second) == True
+    assert first.intersects(second)
 
 
 @pytest.mark.parametrize(
@@ -119,4 +119,4 @@ def test_when_one_contains_other(
     first,
     second,
 ):
-    assert first.intersects(second) == True
+    assert first.intersects(second)
