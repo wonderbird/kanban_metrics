@@ -4,6 +4,10 @@ client-data/*
 # ensure the client-data/ folder is kept in source control and restored when cloning the repository
 !/**/.gitkeep
 
+# drawio. / diagrams.net backup files and temporary files
+.$*.bkp
+.$*.dtmp
+
 # Created by https://www.toptal.com/developers/gitignore/api/python,pycharm+all
 # Edit at https://www.toptal.com/developers/gitignore?templates=python,pycharm+all
 
