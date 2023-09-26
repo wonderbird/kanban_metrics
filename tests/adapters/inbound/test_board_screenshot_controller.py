@@ -10,11 +10,13 @@ from iterative_metrics.eventing.event_aggregator import EventAggregator
 
 def test_read_board_screenshot():
     event_aggregator = EventAggregator()
+
     consumer = BoardScreenshotUpdatedConsumerMock(event_aggregator)
 
     BoardScreenshotController(event_aggregator).read_board_screenshot()
 
-    assert consumer.event is not None
+    shape_of_client_data_kanban_board = (1672, 1392, 3)
+    assert consumer.event.screenshot.shape == shape_of_client_data_kanban_board
 
 
 class BoardScreenshotUpdatedConsumerMock(Consumer):
