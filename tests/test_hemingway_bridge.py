@@ -1,6 +1,5 @@
-# a failing unit test
 def test_hemingway_bridge():
-    # TODO Create bounded contexts or subdomains, then use design level event storming  ...
+    # TODO BoardScreenshotController.read_board_screenshot() should load image and pass it to the event
     assert (
         False
-    ), "Create bounded contexts or subdomains, then use design level event storming  ..."
+    ), "BoardScreenshotController.read_board_screenshot() should load image and pass it to the event"
