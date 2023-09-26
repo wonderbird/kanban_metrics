@@ -7,9 +7,9 @@ def test_when_subscribed_to_event():
     subscriber = FirstSubscriber()
     event_aggregator.subscribe(subscriber)
 
-    event_aggregator.publish(FirstEvent())
+    event_aggregator.publish(FirstEvent("Hello World!"))
 
-    assert subscriber.received_event
+    assert subscriber.received_event.message == "Hello World!"
 
 
 def test_when_subscribed_to_different_event():
@@ -20,22 +20,28 @@ def test_when_subscribed_to_different_event():
     secondSubscriber = SecondEventSubscriber()
     event_aggregator.subscribe(secondSubscriber)
 
-    event_aggregator.publish(FirstEvent())
+    event_aggregator.publish(FirstEvent("This message is ignored"))
 
     assert not secondSubscriber.received_event
 
 
 class FirstEvent:
-    pass
+    def __init__(self, message):
+        self._message = message
+
+    # getter for message property
+    @property
+    def message(self):
+        return self._message
 
 
 class FirstSubscriber:
     def __init__(self):
-        self.received_event = False
+        self.received_event = None
         self.event_type = FirstEvent
 
-    def consume(self):
-        self.received_event = True
+    def consume(self, event):
+        self.received_event = event
 
 
 class SecondEvent:
@@ -44,8 +50,8 @@ class SecondEvent:
 
 class SecondEventSubscriber:
     def __init__(self):
-        self.received_event = False
+        self.received_event = None
         self.event_type = SecondEvent
 
-    def consume(self):
-        self.received_event = True
+    def consume(self, event):
+        self.received_event = event

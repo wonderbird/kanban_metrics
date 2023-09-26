@@ -17,7 +17,7 @@ class EventAggregator:
             return
 
         for subscriber in self.subscribers[event_type_name]:
-            subscriber.consume()
+            subscriber.consume(event)
 
     def is_subscribed(self, event_type_name):
         return event_type_name in self.subscribers
