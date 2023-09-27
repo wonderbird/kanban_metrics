@@ -11,9 +11,9 @@ Use cases:
 
 The software requires python3. You need some basic python programming experience to use the software.
 
-You run the [main.py](main.py) script to execute the program - details are given below. If you run it from the command line, then a window showing the diagram will open. Press `q` to close the window.
+You run the [main.py](src/iterative_metrics/main.py) script to execute the program - details are given below. If you run it from the command line, then a window showing the diagram will open. Press `q` to close the window.
 
-If you run [main.py](main.py) from JetBrains PyCharm with **Scientific Mode** enabled in the **View** menu, then you can copy-paste the diagram.
+If you run [main.py](src/iterative_metrics/main.py) from JetBrains PyCharm with **Scientific Mode** enabled in the **View** menu, then you can copy-paste the diagram.
 
 ### Install dependencies
 
