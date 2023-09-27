@@ -5,3 +5,4 @@ pytest-datafiles
 matplotlib
 opencv-python
 numpy
+inject

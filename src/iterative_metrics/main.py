@@ -1,5 +1,7 @@
 from pathlib import Path
 
+import inject
+
 from iterative_metrics.adapters.inbound.board_screenshot_controller import (
     BoardScreenshotController,
 )
@@ -20,12 +22,14 @@ BOARD_SCREENSHOT_PATH = (
 )
 
 
+@inject.params(
+    event_aggregator=EventAggregator,
+    board_screenshot_storage=BoardScreenshotStorage,
+)
 def main(
-    event_aggregator: EventAggregator = EventAggregator(),
-    board_screenshot_storage: BoardScreenshotStorage = BoardScreenshotFile(
-        BOARD_SCREENSHOT_PATH
-    ),
-):
+    event_aggregator: EventAggregator = None,
+    board_screenshot_storage: BoardScreenshotStorage = None,
+) -> None:
     BoardScreenshotController(
         event_aggregator, board_screenshot_storage
     ).read_board_screenshot()
@@ -39,5 +43,11 @@ def main(
     cumulative_flow_diagram()
 
 
+def configuration(binder: inject.Binder) -> None:
+    binder.bind(EventAggregator, EventAggregator())
+    binder.bind(BoardScreenshotStorage, BoardScreenshotFile(BOARD_SCREENSHOT_PATH))
+
+
 if __name__ == "__main__":
+    inject.configure(configuration)
     main()
