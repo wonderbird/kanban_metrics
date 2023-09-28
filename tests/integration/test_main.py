@@ -19,9 +19,9 @@ from iterative_metrics.main import main
 
 class TestMain:
     board_screenshot_path = (
-        Path(__file__).parent.parent.parent.resolve()
-        / "client-data"
-        / "kanban_board.png"
+        Path(__file__).parent.parent.resolve()
+        / "data"
+        / "full_board_width_808px_height_959px_resolution_96dpi.png"
     )
 
     def setup_method(self) -> None:
