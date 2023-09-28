@@ -16,33 +16,42 @@ from iterative_metrics.eventing.consumer import Consumer
 from iterative_metrics.eventing.event_aggregator import EventAggregator
 from iterative_metrics.main import main
 
-BOARD_SCREENSHOT_PATH = (
-    Path(__file__).parent.parent.parent.resolve() / "client-data" / "kanban_board.png"
-)
 
+class TestMain:
+    board_screenshot_path = (
+        Path(__file__).parent.parent.parent.resolve()
+        / "client-data"
+        / "kanban_board.png"
+    )
 
-def test_main():
-    inject.clear_and_configure(configuration)
-    event_consumer_mock = EventConsumerMock()
+    def setup_method(self) -> None:
+        inject.clear_and_configure(self.configuration)
 
-    main()
+    @staticmethod
+    def teardown_method() -> None:
+        inject.clear()
 
-    expected_screenshot = cv2.imread(str(BOARD_SCREENSHOT_PATH))
-    assert event_consumer_mock.event.screenshot.shape == expected_screenshot.shape
+    def configuration(self, binder: inject.Binder) -> None:
+        binder.bind(EventAggregator, EventAggregator())
+        binder.bind(
+            BoardScreenshotStorage, BoardScreenshotFile(self.board_screenshot_path)
+        )
 
+    def test_main(self):
+        event_consumer_mock = self.EventConsumerMock()
 
-def configuration(binder: inject.Binder) -> None:
-    binder.bind(EventAggregator, EventAggregator())
-    binder.bind(BoardScreenshotStorage, BoardScreenshotFile(BOARD_SCREENSHOT_PATH))
+        main()
 
+        expected_screenshot = cv2.imread(str(self.board_screenshot_path))
+        assert event_consumer_mock.event.screenshot.shape == expected_screenshot.shape
 
-class EventConsumerMock(Consumer):
-    event_aggregator = inject.attr(EventAggregator)
+    class EventConsumerMock(Consumer):
+        event_aggregator = inject.attr(EventAggregator)
 
-    def __init__(self) -> None:
-        super().__init__(BoardScreenshotUpdated)
-        self.event = None
-        self.event_aggregator.subscribe(self)
+        def __init__(self) -> None:
+            super().__init__(BoardScreenshotUpdated)
+            self.event = None
+            self.event_aggregator.subscribe(self)
 
-    def consume(self, event: BoardScreenshotFile) -> None:
-        self.event = event
+        def consume(self, event: BoardScreenshotFile) -> None:
+            self.event = event
