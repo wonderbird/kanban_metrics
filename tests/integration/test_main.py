@@ -9,7 +9,9 @@ from iterative_metrics.adapters.outbound.board_screenshot_file import (
 from iterative_metrics.domain.events.board_screenshot_updated import (
     BoardScreenshotUpdated,
 )
-from iterative_metrics.domain.ports import BoardScreenshotStorage
+from iterative_metrics.domain.ports.board_screenshot_storage import (
+    BoardScreenshotStorage,
+)
 from iterative_metrics.eventing.consumer import Consumer
 from iterative_metrics.eventing.event_aggregator import EventAggregator
 from iterative_metrics.main import main
@@ -20,7 +22,7 @@ BOARD_SCREENSHOT_PATH = (
 
 
 def test_main():
-    inject.configure(configuration)
+    inject.clear_and_configure(configuration)
     event_consumer_mock = EventConsumerMock()
 
     main()

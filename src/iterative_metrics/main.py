@@ -14,7 +14,9 @@ from iterative_metrics.adapters.inbound.cumulative_flow_diagram import (
 from iterative_metrics.adapters.outbound.board_screenshot_file import (
     BoardScreenshotFile,
 )
-from iterative_metrics.domain.ports import BoardScreenshotStorage
+from iterative_metrics.domain.ports.board_screenshot_storage import (
+    BoardScreenshotStorage,
+)
 from iterative_metrics.eventing.event_aggregator import EventAggregator
 
 BOARD_SCREENSHOT_PATH = (
@@ -22,17 +24,8 @@ BOARD_SCREENSHOT_PATH = (
 )
 
 
-@inject.params(
-    event_aggregator=EventAggregator,
-    board_screenshot_storage=BoardScreenshotStorage,
-)
-def main(
-    event_aggregator: EventAggregator = None,
-    board_screenshot_storage: BoardScreenshotStorage = None,
-) -> None:
-    BoardScreenshotController(
-        event_aggregator, board_screenshot_storage
-    ).read_board_screenshot()
+def main() -> None:
+    BoardScreenshotController().read_screenshot()
 
     if BOARD_SCREENSHOT_PATH.exists():
         number_of_work_items = count_work_items_in_image(BOARD_SCREENSHOT_PATH)
