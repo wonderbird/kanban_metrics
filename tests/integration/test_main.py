@@ -6,8 +6,8 @@ import inject
 from iterative_metrics.adapters.outbound.board_screenshot_file import (
     BoardScreenshotFile,
 )
-from iterative_metrics.domain.events.board_screenshot_updated import (
-    BoardScreenshotUpdated,
+from iterative_metrics.domain.events.board_screenshot_updated_event import (
+    BoardScreenshotUpdatedEvent,
 )
 from iterative_metrics.domain.ports.board_screenshot_storage import (
     BoardScreenshotStorage,
@@ -49,7 +49,7 @@ class TestMain:
         event_aggregator = inject.attr(EventAggregator)
 
         def __init__(self) -> None:
-            super().__init__(BoardScreenshotUpdated)
+            super().__init__(BoardScreenshotUpdatedEvent)
             self.event = None
             self.event_aggregator.subscribe(self)
 

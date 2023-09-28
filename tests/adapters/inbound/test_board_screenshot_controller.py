@@ -4,8 +4,8 @@ import numpy as np
 from iterative_metrics.adapters.inbound.board_screenshot_controller import (
     BoardScreenshotController,
 )
-from iterative_metrics.domain.events.board_screenshot_updated import (
-    BoardScreenshotUpdated,
+from iterative_metrics.domain.events.board_screenshot_updated_event import (
+    BoardScreenshotUpdatedEvent,
 )
 from iterative_metrics.domain.ports.board_screenshot_storage import (
     BoardScreenshotStorage,
@@ -51,9 +51,9 @@ class TestBoardScreenshotController:
         event_aggregator = inject.attr(EventAggregator)
 
         def __init__(self) -> None:
-            super().__init__(BoardScreenshotUpdated)
+            super().__init__(BoardScreenshotUpdatedEvent)
             self.event_aggregator.subscribe(self)
             self.event = None
 
-        def consume(self, event: BoardScreenshotUpdated) -> None:
+        def consume(self, event: BoardScreenshotUpdatedEvent) -> None:
             self.event = event
