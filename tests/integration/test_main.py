@@ -1,14 +1,14 @@
 from pathlib import Path
 
-import cv2
 import inject
 
 from iterative_metrics.adapters.outbound.board_screenshot_file import (
     BoardScreenshotFile,
 )
-from iterative_metrics.domain.events.board_screenshot_updated_event import (
-    BoardScreenshotUpdatedEvent,
+from iterative_metrics.domain.event_handlers.board_screenshot_updated_event_handler import (
+    BoardScreenshotUpdatedEventHandler,
 )
+from iterative_metrics.domain.events.work_items_found_event import WorkItemsFoundEvent
 from iterative_metrics.domain.ports.board_screenshot_storage import (
     BoardScreenshotStorage,
 )
@@ -24,6 +24,9 @@ class TestMain:
         / "full_board_width_808px_height_959px_resolution_96dpi.png"
     )
 
+    # store event handlers in a list to prevent them from being garbage collected
+    event_handlers = []
+
     def setup_method(self) -> None:
         inject.clear_and_configure(self.configuration)
 
@@ -38,18 +41,18 @@ class TestMain:
         )
 
     def test_main(self):
+        self.event_handlers.append(BoardScreenshotUpdatedEventHandler())
         event_consumer_mock = self.EventConsumerMock()
 
         main()
 
-        expected_screenshot = cv2.imread(str(self.board_screenshot_path))
-        assert event_consumer_mock.event.screenshot.shape == expected_screenshot.shape
+        assert event_consumer_mock.event.work_items.count > 0
 
     class EventConsumerMock(Consumer):
         event_aggregator = inject.attr(EventAggregator)
 
         def __init__(self) -> None:
-            super().__init__(BoardScreenshotUpdatedEvent)
+            super().__init__(WorkItemsFoundEvent)
             self.event = None
             self.event_aggregator.subscribe(self)
 
