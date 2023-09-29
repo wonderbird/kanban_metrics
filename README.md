@@ -48,7 +48,7 @@ python main.py
 #### Render CFD
 
 ```shell
-python main.py
+python src/iterative_metrics/main.py
 ```
 
 ## Development Guide
