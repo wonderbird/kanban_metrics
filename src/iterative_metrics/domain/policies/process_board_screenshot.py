@@ -1,12 +1,12 @@
 import inject
 
-from iterative_metrics.domain.events.board_screenshot_updated_event import (
-    BoardScreenshotUpdatedEvent,
+from iterative_metrics.domain.events.board_screenshot_updated import (
+    BoardScreenshotUpdated,
 )
-from iterative_metrics.domain.events.potential_workflow_steps_found_event import (
-    PotentialWorkflowStepsFoundEvent,
+from iterative_metrics.domain.events.potential_workflow_steps_found import (
+    PotentialWorkflowStepsFound,
 )
-from iterative_metrics.domain.events.work_items_found_event import WorkItemsFoundEvent
+from iterative_metrics.domain.events.work_items_found import WorkItemsFound
 from iterative_metrics.domain.work_items import WorkItems
 from iterative_metrics.domain.workflow_steps import WorkflowSteps
 from iterative_metrics.eventing.consumer import Consumer
@@ -17,12 +17,12 @@ class ProcessBoardScreenshot(Consumer):
     event_aggregator = inject.attr(EventAggregator)
 
     def __init__(self) -> None:
-        super().__init__(BoardScreenshotUpdatedEvent)
+        super().__init__(BoardScreenshotUpdated)
         self.event_aggregator.subscribe(self)
 
-    def consume(self, event: BoardScreenshotUpdatedEvent) -> None:
+    def consume(self, event: BoardScreenshotUpdated) -> None:
         work_items = WorkItems.parse_screenshot(event.screenshot)
-        self.event_aggregator.publish(WorkItemsFoundEvent(work_items))
+        self.event_aggregator.publish(WorkItemsFound(work_items))
 
         workflow_steps = WorkflowSteps.parse_screenshot(event.screenshot)
-        self.event_aggregator.publish(PotentialWorkflowStepsFoundEvent(workflow_steps))
+        self.event_aggregator.publish(PotentialWorkflowStepsFound(workflow_steps))

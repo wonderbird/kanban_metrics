@@ -11,10 +11,10 @@ from iterative_metrics.adapters.inbound.cumulative_flow_diagram import (
 from iterative_metrics.adapters.outbound.board_screenshot_file import (
     BoardScreenshotFile,
 )
-from iterative_metrics.domain.events.potential_workflow_steps_found_event import (
-    PotentialWorkflowStepsFoundEvent,
+from iterative_metrics.domain.events.potential_workflow_steps_found import (
+    PotentialWorkflowStepsFound,
 )
-from iterative_metrics.domain.events.work_items_found_event import WorkItemsFoundEvent
+from iterative_metrics.domain.events.work_items_found import WorkItemsFound
 from iterative_metrics.domain.policies.log_event import LogEvent
 from iterative_metrics.domain.policies.process_board_screenshot import (
     ProcessBoardScreenshot,
@@ -53,8 +53,8 @@ def configure_event_handling_policies():
     they will not be garbage collected.
     """
     ProcessBoardScreenshot()
-    LogEvent(WorkItemsFoundEvent)
-    LogEvent(PotentialWorkflowStepsFoundEvent)
+    LogEvent(WorkItemsFound)
+    LogEvent(PotentialWorkflowStepsFound)
 
 
 if __name__ == "__main__":

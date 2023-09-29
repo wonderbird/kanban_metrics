@@ -1,7 +1,7 @@
 import inject
 
-from iterative_metrics.domain.events.board_screenshot_updated_event import (
-    BoardScreenshotUpdatedEvent,
+from iterative_metrics.domain.events.board_screenshot_updated import (
+    BoardScreenshotUpdated,
 )
 from iterative_metrics.domain.ports.board_screenshot_storage import (
     BoardScreenshotStorage,
@@ -16,4 +16,4 @@ class BoardScreenshotController:
     def read_screenshot(self) -> None:
         """Inform the system that the board screenshot has been updated."""
         screenshot = self.board_screenshot_storage.read_screenshot()
-        self.event_aggregator.publish(BoardScreenshotUpdatedEvent(screenshot))
+        self.event_aggregator.publish(BoardScreenshotUpdated(screenshot))
