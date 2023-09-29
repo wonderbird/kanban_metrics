@@ -4,6 +4,10 @@ from iterative_metrics.eventing.consumer import Consumer
 
 
 class EventAggregator:
+    """
+    Minimal event aggregator, no thread safety, prevents consumers from being garbage collected.
+    """
+
     def __init__(self) -> None:
         self.consumers = {}
 

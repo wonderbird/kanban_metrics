@@ -41,6 +41,13 @@ def dependencies(binder: inject.Binder) -> None:
 
 
 def configure_event_handling_policies():
+    """
+    Register event handling policies, i.e. event consumers.
+
+    Each policy registers itself with the EventAggregator when it is instantiated.
+    Because the event aggregator keeps a reference to each the registered consumer,
+    they will not be garbage collected.
+    """
     ProcessBoardScreenshot()
     LogEvent()
 
