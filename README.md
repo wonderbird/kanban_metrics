@@ -32,7 +32,7 @@ pip install --editable .
 - Replace the file [kanban_board.png](client-data/kanban_board.png) with a current screenshot of the kanban board
 
 ```shell
-python main.py
+python src/iterative_metrics/main.py
 ```
 
 ### Render Cumulative Flow Diagram
