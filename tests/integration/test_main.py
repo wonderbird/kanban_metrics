@@ -5,8 +5,8 @@ import inject
 from iterative_metrics.adapters.outbound.board_screenshot_file import (
     BoardScreenshotFile,
 )
-from iterative_metrics.domain.event_handlers.board_screenshot_updated_event_handler import (
-    BoardScreenshotUpdatedEventHandler,
+from iterative_metrics.domain.policies.process_board_screenshot import (
+    ProcessBoardScreenshot,
 )
 from iterative_metrics.domain.events.work_items_found_event import WorkItemsFoundEvent
 from iterative_metrics.domain.ports.board_screenshot_storage import (
@@ -41,7 +41,7 @@ class TestMain:
         )
 
     def test_main(self):
-        self.event_handlers.append(BoardScreenshotUpdatedEventHandler())
+        self.event_handlers.append(ProcessBoardScreenshot())
         event_consumer_mock = self.EventConsumerMock()
 
         main()

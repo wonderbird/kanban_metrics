@@ -9,7 +9,7 @@ from iterative_metrics.eventing.consumer import Consumer
 from iterative_metrics.eventing.event_aggregator import EventAggregator
 
 
-class BoardScreenshotUpdatedEventHandler(Consumer):
+class ProcessBoardScreenshot(Consumer):
     event_aggregator = inject.attr(EventAggregator)
 
     def __init__(self) -> None:
