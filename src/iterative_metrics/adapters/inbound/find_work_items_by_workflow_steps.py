@@ -1,16 +1,14 @@
 import cv2
 
-from iterative_metrics.adapters.outbound.find_work_items_in_image import (
-    find_work_items_in_screenshot,
-)
 from iterative_metrics.adapters.outbound.find_workflow_steps_in_image import (
     find_workflow_steps_in_image,
 )
+from iterative_metrics.domain.work_items import WorkItems
 
 
 def find_work_items_by_workflow_steps(image_file):
     image = cv2.imread(str(image_file))
-    work_items = find_work_items_in_screenshot(image)
+    work_items = WorkItems.parse_screenshot(image)
     workflow_steps = find_workflow_steps_in_image(image_file)
 
     if len(workflow_steps) == 0:

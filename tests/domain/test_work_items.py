@@ -3,11 +3,9 @@ from pathlib import Path
 import cv2
 import pytest
 
-from iterative_metrics.adapters.outbound.find_work_items_in_image import (
-    find_work_items_in_screenshot,
-)
+from iterative_metrics.domain.work_items import WorkItems
 
-FIXTURE_DIR = Path(__file__).parent.parent.parent.resolve() / "data"
+FIXTURE_DIR = Path(__file__).parent.parent.resolve() / "data"
 
 
 @pytest.mark.parametrize(
@@ -20,8 +18,7 @@ FIXTURE_DIR = Path(__file__).parent.parent.parent.resolve() / "data"
         (43, "full_board_width_808px_height_959px_resolution_96dpi.png"),
     ],
 )
-def test_find_work_items_in_screenshot(expected, filename):
+def test_work_items_parse_screenshot(expected, filename):
     image = cv2.imread(str(FIXTURE_DIR / filename))
-    work_items = find_work_items_in_screenshot(image)
-    actual = len(work_items)
-    assert actual == expected
+    work_items = WorkItems.parse_screenshot(image)
+    assert work_items.count == expected
