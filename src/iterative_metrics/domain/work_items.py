@@ -20,6 +20,8 @@ class WorkItems:
 
     @staticmethod
     def parse_screenshot(screenshot: np.ndarray) -> "WorkItems":
+        """Identify work items in board screenshot."""
+
         hsv_input = cv2.cvtColor(screenshot, cv2.COLOR_BGR2HSV)
 
         # identify the metrics area (green box)
