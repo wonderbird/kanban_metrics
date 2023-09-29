@@ -12,3 +12,4 @@ class TestMain:
         main()
 
         assert "43 work items found" in caplog.text
+        assert "17 potential workflow steps found" in caplog.text
