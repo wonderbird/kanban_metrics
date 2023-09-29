@@ -5,7 +5,7 @@ import pytest
 
 from iterative_metrics.domain.workflow_steps import WorkflowSteps
 
-FIXTURE_DIR = Path(__file__).parent.parent.parent.resolve() / "data"
+FIXTURE_DIR = Path(__file__).parent.parent.resolve() / "data"
 
 
 @pytest.mark.parametrize(
