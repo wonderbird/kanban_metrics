@@ -1,8 +1,10 @@
 from pathlib import Path
+
+import cv2
 import pytest
 
 from iterative_metrics.adapters.outbound.find_work_items_in_image import (
-    find_work_items_in_image,
+    find_work_items_in_screenshot,
 )
 
 FIXTURE_DIR = Path(__file__).parent.parent.parent.resolve() / "data"
@@ -18,7 +20,8 @@ FIXTURE_DIR = Path(__file__).parent.parent.parent.resolve() / "data"
         (43, "full_board_width_808px_height_959px_resolution_96dpi.png"),
     ],
 )
-def test_find_work_items_in_image(expected, filename):
-    work_items = find_work_items_in_image(FIXTURE_DIR / filename)
+def test_find_work_items_in_screenshot(expected, filename):
+    image = cv2.imread(str(FIXTURE_DIR / filename))
+    work_items = find_work_items_in_screenshot(image)
     actual = len(work_items)
     assert actual == expected

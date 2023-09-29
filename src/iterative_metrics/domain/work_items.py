@@ -20,3 +20,6 @@ class WorkItems:
     @property
     def count(self) -> int:
         return len(self.work_items)
+
+    def __iter__(self):
+        return iter(self.work_items)
