@@ -1,4 +1,4 @@
-from typing import Iterator
+from typing import Iterator, List
 
 import cv2
 import numpy as np
@@ -13,7 +13,7 @@ from iterative_metrics.domain.workflow_step import WorkflowStep
 
 
 class WorkflowSteps:
-    def __init__(self, workflow_steps):
+    def __init__(self, workflow_steps: List[WorkflowStep]) -> None:
         self.workflow_steps = workflow_steps
 
     @property
