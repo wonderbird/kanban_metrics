@@ -5,9 +5,6 @@ import inject
 from iterative_metrics.adapters.inbound.board_screenshot_controller import (
     BoardScreenshotController,
 )
-from iterative_metrics.adapters.inbound.count_work_items_in_image import (
-    count_work_items_in_image,
-)
 from iterative_metrics.adapters.inbound.cumulative_flow_diagram import (
     cumulative_flow_diagram,
 )
@@ -26,12 +23,6 @@ BOARD_SCREENSHOT_PATH = (
 
 def main() -> None:
     BoardScreenshotController().read_screenshot()
-
-    if BOARD_SCREENSHOT_PATH.exists():
-        number_of_work_items = count_work_items_in_image(BOARD_SCREENSHOT_PATH)
-        print(
-            f"{number_of_work_items} work_items identified in {BOARD_SCREENSHOT_PATH}"
-        )
 
     cumulative_flow_diagram()
 
