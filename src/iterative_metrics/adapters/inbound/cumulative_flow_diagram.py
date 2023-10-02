@@ -59,10 +59,17 @@ def cumulative_flow_diagram():
         ],
         ########## Data added by Nik ##################
         # 29.09.2023
-        # +1 sharing columns
+        # +1 sharing columns| (email)
         # +1 doing CoBo     | (License Activation)
         # doing other       | hasn't changed
         # +2 agreed cobo    | since it was empty
+        # agreed other      | hasn't changed
+        # --------------------------------------------
+        # 02.10.2023
+        # +1 sharing columns| (License Activation)
+        # doing CoBo        | (Trivy)
+        # doing other       | hasn't changed
+        # -1 agreed cobo    | started on Trivy
         # agreed other      | hasn't changed
         ##############################################
         "both sharing columns": [8, 0, 0, 0, 0, 1, 3, 4, 6, 1, 2, 0, 0, 0, 2, 2, 3, 5, 5, 2, 2, 2, 0, 1, 2],
