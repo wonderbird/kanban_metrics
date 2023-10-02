@@ -56,6 +56,14 @@ def cumulative_flow_diagram():
             28,
             28,
         ],
+        ########## Data added by Nik ##################
+        # 29.09.2023
+        # +1 sharing columns
+        # +1 doing CoBo     | (License Activation)
+        # doing other       | hasn't changed
+        # +2 agreed cobo    | since it was empty
+        # agreed other      | hasn't changed
+        ##############################################
         "both sharing columns": [8, 0, 0, 0, 0, 1, 3, 4, 6, 1, 2, 0, 0, 0, 2, 2, 3, 5, 5, 2, 2, 2, 0, 1, 2],
         "doing cobo          ": [0, 2, 2, 3, 3, 3, 3, 3, 2, 2, 1, 2, 2, 3, 3, 3, 3, 2, 3, 2, 3, 3, 1, 0, 1],
         "doing other         ": [1, 2, 3, 3, 3, 2, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1],
