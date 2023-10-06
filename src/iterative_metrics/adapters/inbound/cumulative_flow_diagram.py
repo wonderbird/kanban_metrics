@@ -31,6 +31,7 @@ def cumulative_flow_diagram():
         "02.10.23 16:00",
         "04.10.23 16:00", ## 03.10. skipped because of public holiday
         "05.10.23 16:00",
+        "06.10.23 13:00",
     ]
     metrics = {
         "done                ": [
@@ -56,6 +57,7 @@ def cumulative_flow_diagram():
             24,
             24,
             24,
+            28,
             28,
             28,
             28,
@@ -91,12 +93,19 @@ def cumulative_flow_diagram():
         # doing other       | hasn't changed
         # agreed cobo       | hasn't changed
         # agreed other      | hasn't changed
+        # --------------------------------------------
+        # 06.10.2023
+        # sharing columns   | hasn't changed
+        # doing CoBo        | (+1 A-3.1: repository configuration for igus-digital (AX))
+        # doing other       | hasn't changed
+        # agreed cobo       | hasn't changed
+        # agreed other      | hasn't changed
         ##############################################
-        "both sharing columns": [8, 0, 0, 0, 0, 1, 3, 4, 6, 1, 2, 0, 0, 0, 2, 2, 3, 5, 5, 2, 2, 2, 0, 1, 2, 3, 5, 6],
-        "doing cobo          ": [0, 2, 2, 3, 3, 3, 3, 3, 2, 2, 1, 2, 2, 3, 3, 3, 3, 2, 3, 2, 3, 3, 1, 0, 1, 1, 1, 1],
-        "doing other         ": [1, 2, 3, 3, 3, 2, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        "agreed cobo         ": [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 1, 1, 1],
-        "agreed other        ": [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1],
+        "both sharing columns": [8, 0, 0, 0, 0, 1, 3, 4, 6, 1, 2, 0, 0, 0, 2, 2, 3, 5, 5, 2, 2, 2, 0, 1, 2, 3, 5, 6, 6],
+        "doing cobo          ": [0, 2, 2, 3, 3, 3, 3, 3, 2, 2, 1, 2, 2, 3, 3, 3, 3, 2, 3, 2, 3, 3, 1, 0, 1, 1, 1, 1, 2],
+        "doing other         ": [1, 2, 3, 3, 3, 2, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+        "agreed cobo         ": [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 1, 1, 1, 1],
+        "agreed other        ": [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1],
     }
 
     show_cumulative_flow_diagram(dates, metrics)
