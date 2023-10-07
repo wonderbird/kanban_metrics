@@ -5,7 +5,7 @@ import pytest
 
 from iterative_metrics.domain.workflow_steps import WorkflowSteps
 
-FIXTURE_DIR = Path(__file__).parent.parent.resolve() / "data"
+FIXTURE_DIR = Path(__file__).parent.parent.parent.resolve() / "data"
 
 
 @pytest.mark.parametrize(
@@ -16,13 +16,13 @@ FIXTURE_DIR = Path(__file__).parent.parent.resolve() / "data"
         (2, "2_workflow_steps_width_240px_height_910px_resolution_96dpi.png"),
     ],
 )
-def test_find_workflow_steps_in_image(expected, filename):
+def test_given_screenshot(expected, filename):
     image = cv2.imread(str(FIXTURE_DIR / filename))
     workflow_steps = WorkflowSteps.parse_screenshot(image)
     assert workflow_steps.count == expected
 
 
-def test_find_workflow_steps_in_image_with_artifact():
+def test_given_artifact_in_screenshot():
     image_path = (
         FIXTURE_DIR
         / "2_workflow_steps_with_artifact_width_240px_height_910px_resolution_96dpi.png"
