@@ -20,6 +20,11 @@ class WorkflowSteps:
     def count(self) -> int:
         return len(self.workflow_steps)
 
+    @property
+    def work_items_per_workflow_step(self) -> List[int]:
+        result = [0 for _ in self.workflow_steps]
+        return result
+
     @staticmethod
     def parse_screenshot(screenshot: np.ndarray) -> "WorkflowSteps":
         hsv_input = cv2.cvtColor(screenshot, cv2.COLOR_BGR2HSV)
