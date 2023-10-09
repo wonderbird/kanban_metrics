@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 
 
 def cumulative_flow_diagram():
+    # fmt: off
     dates = [
         "28.08.23 16:30",
         "29.08.23 16:30",
@@ -34,79 +35,14 @@ def cumulative_flow_diagram():
         "06.10.23 13:00",
     ]
     metrics = {
-        "done                ": [
-            0,
-            8,
-            8,
-            8,
-            8,
-            8,
-            8,
-            8,
-            8,
-            18,
-            18,
-            20,
-            20,
-            20,
-            20,
-            20,
-            20,
-            20,
-            20,
-            24,
-            24,
-            24,
-            28,
-            28,
-            28,
-            28,
-            28,
-            28,
-            28,
-        ],
-        ########## Data added by Nik ##################
-        # 29.09.2023
-        # +1 sharing columns| (email)
-        # +1 doing CoBo     | (License Activation)
-        # doing other       | hasn't changed
-        # +2 agreed cobo    | since it was empty
-        # agreed other      | hasn't changed
-        # --------------------------------------------
-        # 02.10.2023
-        # +1 sharing columns| (License Activation)
-        # doing CoBo        | (Trivy)
-        # doing other       | hasn't changed
-        # -1 agreed cobo    | started on Trivy
-        # agreed other      | hasn't changed
-        # --------------------------------------------
-        # 04.10.2023
-        # sharing columns   | (+2 Firefighting Code Review for 966 | AX/BT Problems Taskforce)
-        # doing CoBo        | hasn't changed
-        # doing other       | hasn't changed
-        # agreed cobo       | hasn't changed
-        # agreed other      | hasn't changed
-        # --------------------------------------------
-        # 05.10.2023
-        # sharing columns   | (+1 Firefighting Code Review for 966)
-        # doing CoBo        | hasn't changed
-        # doing other       | hasn't changed
-        # agreed cobo       | hasn't changed
-        # agreed other      | hasn't changed
-        # --------------------------------------------
-        # 06.10.2023
-        # sharing columns   | hasn't changed
-        # doing CoBo        | (+1 A-3.1: repository configuration for igus-digital (AX))
-        # doing other       | hasn't changed
-        # agreed cobo       | hasn't changed
-        # agreed other      | hasn't changed
-        ##############################################
-        "both sharing columns": [8, 0, 0, 0, 0, 1, 3, 4, 6, 1, 2, 0, 0, 0, 2, 2, 3, 5, 5, 2, 2, 2, 0, 1, 2, 3, 5, 6, 6],
-        "doing cobo          ": [0, 2, 2, 3, 3, 3, 3, 3, 2, 2, 1, 2, 2, 3, 3, 3, 3, 2, 3, 2, 3, 3, 1, 0, 1, 1, 1, 1, 2],
-        "doing other         ": [1, 2, 3, 3, 3, 2, 3, 3, 3, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-        "agreed cobo         ": [0, 0, 0, 0, 0, 0, 0, 0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 1, 1, 2, 2, 2, 1, 1, 1, 1],
-        "agreed other        ": [0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1],
+        "done                ": [0, 8, 8, 8, 8, 8, 8, 8, 8, 18, 18, 20, 20, 20, 20, 20, 20, 20, 20, 24, 24, 24, 28, 28, 28, 28, 28, 28, 28],
+        "both sharing columns": [8, 0, 0, 0, 0, 1, 3, 4, 6,  1,  2,  0,  0,  0,  2,  2,  3,  5,  5,  2,  2,  2,  0,  1,  2,  3,  5,  6,  6],
+        "doing cobo          ": [0, 2, 2, 3, 3, 3, 3, 3, 2,  2,  1,  2,  2,  3,  3,  3,  3,  2,  3,  2,  3,  3,  1,  0,  1,  1,  1,  1,  2],
+        "doing other         ": [1, 2, 3, 3, 3, 2, 3, 3, 3,  2,  2,  2,  2,  2,  2,  2,  2,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1],
+        "agreed cobo         ": [0, 0, 0, 0, 0, 0, 0, 0, 2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  2,  1,  1,  2,  2,  2,  1,  1,  1,  1],
+        "agreed other        ": [0, 0, 0, 0, 0, 1, 0, 0, 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  1,  1,  1,  1,  1,  1,  1],
     }
+    # fmt: on
 
     show_cumulative_flow_diagram(dates, metrics)
 

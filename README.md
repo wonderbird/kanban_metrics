@@ -1,5 +1,7 @@
 # ITerative Metrics
 
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+
 Use cases:
 
 - Count number of work items on our team kanban board
