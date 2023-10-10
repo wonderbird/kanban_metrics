@@ -2,6 +2,7 @@ build
 hatch
 pytest
 pytest-datafiles
+pytest-mock
 matplotlib
 opencv-python
 numpy

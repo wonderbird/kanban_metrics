@@ -9,6 +9,7 @@ from iterative_metrics.adapters.outbound.debug_image import (
 from iterative_metrics.adapters.outbound.find_bounding_rectangles_of_largest_closed_shapes import (
     find_bounding_rectangles_of_largest_closed_shapes,
 )
+from iterative_metrics.domain.work_items import WorkItems
 from iterative_metrics.domain.workflow_step import WorkflowStep
 
 
@@ -16,13 +17,18 @@ class WorkflowSteps:
     def __init__(self, workflow_steps: List[WorkflowStep]) -> None:
         self.workflow_steps = workflow_steps
 
+    def __iter__(self) -> Iterator[WorkflowStep]:
+        return iter(self.workflow_steps)
+
     @property
     def count(self) -> int:
         return len(self.workflow_steps)
 
     @property
     def work_items_per_workflow_step(self) -> List[int]:
-        result = [0 for _ in self.workflow_steps]
+        result = [
+            workflow_step.number_of_work_items for workflow_step in self.workflow_steps
+        ]
         return result
 
     @staticmethod
@@ -65,5 +71,7 @@ class WorkflowSteps:
 
         return WorkflowSteps(workflow_steps)
 
-    def __iter__(self) -> Iterator[WorkflowStep]:
-        return iter(self.workflow_steps)
+    def associate_with(self, work_items: WorkItems) -> None:
+        """Map each work item to the workflow step it belongs to."""
+        for workflow_step in self.workflow_steps:
+            workflow_step.associate_with(work_items)

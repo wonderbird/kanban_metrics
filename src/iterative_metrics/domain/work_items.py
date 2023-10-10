@@ -58,3 +58,6 @@ class WorkItems:
 
     def __iter__(self) -> Iterator[WorkItem]:
         return iter(self.work_items)
+
+    def append(self, work_item: WorkItem) -> None:
+        self.work_items.append(work_item)
