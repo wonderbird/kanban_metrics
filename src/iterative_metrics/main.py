@@ -1,7 +1,9 @@
+import logging
 from pathlib import Path
 
 import inject
 
+import iterative_metrics
 from iterative_metrics.adapters.inbound.board_screenshot_controller import (
     BoardScreenshotController,
 )
@@ -14,10 +16,6 @@ from iterative_metrics.adapters.outbound.board_screenshot_file import (
 from iterative_metrics.domain.events.board_status_determined import (
     BoardStatusDetermined,
 )
-from iterative_metrics.domain.events.potential_workflow_steps_found import (
-    PotentialWorkflowStepsFound,
-)
-from iterative_metrics.domain.events.work_items_found import WorkItemsFound
 from iterative_metrics.domain.policies.determine_board_status import (
     DetermineBoardStatus,
 )
@@ -37,6 +35,7 @@ BOARD_SCREENSHOT_PATH = (
 
 def main() -> None:
     inject.configure(dependencies)
+    configure_logging()
     configure_event_handling_policies()
 
     BoardScreenshotController().read_screenshot()
@@ -48,6 +47,10 @@ def dependencies(binder: inject.Binder) -> None:
     """Configure dependencies, i.e. repositories, infrastructure, etc."""
     binder.bind(EventAggregator, EventAggregator())
     binder.bind(BoardScreenshotStorage, BoardScreenshotFile(BOARD_SCREENSHOT_PATH))
+
+
+def configure_logging():
+    logging.basicConfig(level=logging.INFO)
 
 
 def configure_event_handling_policies():
