@@ -60,8 +60,6 @@ def configure_event_handling_policies():
     """
     ProcessBoardScreenshot()
     DetermineBoardStatus()
-    LogEvent(WorkItemsFound)
-    LogEvent(PotentialWorkflowStepsFound)
     LogEvent(BoardStatusDetermined)
 
 
