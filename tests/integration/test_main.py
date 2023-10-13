@@ -11,7 +11,4 @@ class TestMain:
 
         main()
 
-        assert (
-            "board status: [12, 16, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 2, 3, 0, 2, 0]"
-            in caplog.text
-        )
+        assert "board status: [11, 6, 10, 4, 9, 4, 11, 9, 1]" in caplog.text

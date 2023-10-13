@@ -16,7 +16,7 @@ FIXTURE_DIR = Path(__file__).parent.parent.parent.resolve() / "data"
         (2, "2_workflow_steps_width_240px_height_910px_resolution_96dpi.png"),
     ],
 )
-def test_given_screenshot(expected, filename):
+def test_given_ideal_screenshot(expected, filename):
     image = cv2.imread(str(FIXTURE_DIR / filename))
     workflow_steps = WorkflowSteps.parse_screenshot(image)
     assert workflow_steps.count == expected
@@ -41,3 +41,16 @@ def test_result_should_be_sorted_from_left_to_right():
 
     left_x_coordinates = [step.bounding_rectangle.x for step in workflow_steps]
     assert left_x_coordinates == sorted(left_x_coordinates)
+
+
+@pytest.mark.parametrize(
+    "expected, filename",
+    [
+        (18, "full_board_width_808px_height_959px_resolution_96dpi.png"),
+        (12, "full_board_width_1490px_height_1784px_resolution_144dpi.png"),
+    ],
+)
+def test_given_realistic_full_board(expected, filename):
+    image = cv2.imread(str(FIXTURE_DIR / filename))
+    workflow_steps = WorkflowSteps.parse_screenshot(image)
+    assert workflow_steps.count == expected

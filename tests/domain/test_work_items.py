@@ -16,6 +16,7 @@ FIXTURE_DIR = Path(__file__).parent.parent.resolve() / "data"
         (2, "2_work_items_1_blocker_width_239px_height_236px_resolution_96dpi.png"),
         (11, "11_work_items_width_640px_height_480px_resolution_96dpi.png"),
         (43, "full_board_width_808px_height_959px_resolution_96dpi.png"),
+        (72, "full_board_width_1490px_height_1784px_resolution_144dpi.png"),
     ],
 )
 def test_work_items_parse_screenshot(expected, filename):
