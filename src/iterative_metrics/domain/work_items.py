@@ -1,16 +1,12 @@
-from typing import List
 from collections.abc import Iterator
+from typing import List
 
 import cv2
 import numpy as np
 
-from iterative_metrics.adapters.outbound.debug_image import (
-    debug_show_rectangles_in_image,
-)
 from iterative_metrics.adapters.outbound.find_bounding_rectangles_of_largest_closed_shapes import (
     find_bounding_rectangles_of_largest_closed_shapes,
 )
-
 from iterative_metrics.domain.work_item import WorkItem
 
 
@@ -48,7 +44,6 @@ class WorkItems:
         work_items = []
         for bounding_rectangle in bounding_rectangles:
             work_items.append(WorkItem(bounding_rectangle))
-        debug_show_rectangles_in_image(screenshot, bounding_rectangles)
 
         return WorkItems(work_items)
 

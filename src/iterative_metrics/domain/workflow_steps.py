@@ -3,9 +3,6 @@ from typing import Iterator, List
 import cv2
 import numpy as np
 
-from iterative_metrics.adapters.outbound.debug_image import (
-    debug_show_rectangles_in_image,
-)
 from iterative_metrics.adapters.outbound.find_bounding_rectangles_of_largest_closed_shapes import (
     find_bounding_rectangles_of_largest_closed_shapes,
 )
@@ -67,7 +64,6 @@ class WorkflowSteps:
         workflow_steps = []
         for rectangle in largest_rectangles:
             workflow_steps.append(WorkflowStep(rectangle))
-        debug_show_rectangles_in_image(screenshot, largest_rectangles)
 
         return WorkflowSteps(workflow_steps)
 

@@ -3,7 +3,6 @@ from pathlib import Path
 
 import inject
 
-import iterative_metrics
 from iterative_metrics.adapters.inbound.board_screenshot_controller import (
     BoardScreenshotController,
 )
@@ -22,6 +21,9 @@ from iterative_metrics.domain.policies.determine_board_status import (
 from iterative_metrics.domain.policies.log_event import LogEvent
 from iterative_metrics.domain.policies.process_board_screenshot import (
     ProcessBoardScreenshot,
+)
+from iterative_metrics.domain.policies.visualize_workflow_steps_and_work_items import (
+    VisualizeWorkflowStepsAndWorkItems,
 )
 from iterative_metrics.domain.ports.board_screenshot_storage import (
     BoardScreenshotStorage,
@@ -64,6 +66,7 @@ def configure_event_handling_policies():
     ProcessBoardScreenshot()
     DetermineBoardStatus()
     LogEvent(BoardStatusDetermined)
+    VisualizeWorkflowStepsAndWorkItems()
 
 
 if __name__ == "__main__":
