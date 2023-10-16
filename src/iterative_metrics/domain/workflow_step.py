@@ -1,8 +1,9 @@
+from iterative_metrics.domain.rectangle import Rectangle
 from iterative_metrics.domain.work_items import WorkItems
 
 
 class WorkflowStep:
-    def __init__(self, bounding_rectangle):
+    def __init__(self, bounding_rectangle: Rectangle) -> None:
         self.bounding_rectangle = bounding_rectangle
         self.number_of_work_items = 0
 
