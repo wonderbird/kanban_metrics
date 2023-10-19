@@ -6,7 +6,7 @@ from iterative_metrics.eventing.consumer import Consumer
 from iterative_metrics.eventing.event_aggregator import EventAggregator
 
 
-class TestWaitForMultipleEvents:
+class TestWaitForMultipleEventsIntegrationTest:
     _event_aggregator = EventAggregator()
 
     def setup_method(self) -> None:
@@ -18,29 +18,12 @@ class TestWaitForMultipleEvents:
     def teardown_method() -> None:
         inject.clear()
 
-    def test_given_waiting_for_single_event_when_no_event_published(self, mocker):
-        mock_callback = mocker.patch.object(self, "callback", autospec=True)
-        WaitForMultipleEvents(self.callback, [AwaitedEvent1])
-        mock_callback.assert_not_called()
-
-    def test_given_waiting_for_single_event_when_event_published(self, mocker):
-        mock_callback = mocker.patch.object(self, "callback", autospec=True)
-        WaitForMultipleEvents(self.callback, [AwaitedEvent1])
-        self._event_aggregator.publish(AwaitedEvent1())
-        mock_callback.assert_called_once()
-
     def test_given_waiting_for_single_event_when_event_published(self, mocker):
         WaitForMultipleEvents(self.callback, [AwaitedEvent1])
         consumer = EventCollectionConsumer()
         mock_consume = mocker.patch.object(consumer, "consume", autospec=True)
         self._event_aggregator.publish(AwaitedEvent1())
         mock_consume.assert_called_once()
-
-    def test_given_waiting_for_two_events_when_only_one_event_published(self, mocker):
-        mock_callback = mocker.patch.object(self, "callback", autospec=True)
-        WaitForMultipleEvents(self.callback, [AwaitedEvent1, AwaitedEvent2])
-        self._event_aggregator.publish(AwaitedEvent1())
-        mock_callback.assert_not_called()
 
     def test_given_waiting_for_two_events_when_all_events_published(self, mocker):
         mock_callback = mocker.patch.object(self, "callback", autospec=True)
@@ -127,3 +110,55 @@ def consumer_constructor(
 
 def consumer_consume(self: Consumer, event: object) -> None:
     self._outer_class.consume(event)
+
+
+class TestWaitForMultipleEventsConsume:
+    _event_aggregator = EventAggregator()
+
+    def setup_method(self, mocker) -> None:
+        inject.clear_and_configure(
+            lambda binder: binder.bind(EventAggregator, self._event_aggregator)
+        )
+
+    @staticmethod
+    def teardown_method() -> None:
+        inject.clear()
+
+    def test_given_waiting_for_single_event_when_no_event_published(self, mocker):
+        mock_publish = mocker.patch.object(
+            self._event_aggregator, "publish", autospec=True
+        )
+
+        subject = WaitForMultipleEvents(self.callback, [AwaitedEvent1])
+        subject.consume(None)
+
+        mock_publish.assert_not_called()
+
+    def test_given_waiting_for_single_event_when_event_published(self, mocker):
+        mock_publish = mocker.patch.object(
+            self._event_aggregator, "publish", autospec=True
+        )
+        subject = WaitForMultipleEvents(self.callback, [AwaitedEvent1])
+        subject.consume(AwaitedEvent1())
+        mock_publish.assert_called_once()
+
+    def test_given_waiting_for_two_events_when_only_one_event_published(self, mocker):
+        mock_publish = mocker.patch.object(
+            self._event_aggregator, "publish", autospec=True
+        )
+        subject = WaitForMultipleEvents(self.callback, [AwaitedEvent1, AwaitedEvent2])
+        subject.consume(AwaitedEvent1())
+        mock_publish.assert_not_called()
+
+    def test_given_waiting_for_two_events_when_all_events_published(self, mocker):
+        mock_publish = mocker.patch.object(
+            self._event_aggregator, "publish", autospec=True
+        )
+
+        subject = WaitForMultipleEvents(self.callback, [AwaitedEvent1, AwaitedEvent3])
+        subject.consume(AwaitedEvent1())
+        subject.consume(AwaitedEvent3())
+        mock_publish.assert_called_once()
+
+    def callback(self) -> None:
+        pass
