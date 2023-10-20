@@ -49,18 +49,15 @@ class TestWaitForMultipleEventsIntegrationTest:
         return mocker.patch.object(self._consumer, "consume", autospec=True)
 
     def test_given_waiting_for_single_event_when_event_published(self, mock_consume):
-        WaitForMultipleEvents(self.callback, [AwaitedEvent1])
+        WaitForMultipleEvents([AwaitedEvent1])
         self._event_aggregator.publish(AwaitedEvent1())
         mock_consume.assert_called_once()
 
     def test_given_waiting_for_two_events_when_all_events_published(self, mock_consume):
-        WaitForMultipleEvents(self.callback, [AwaitedEvent1, AwaitedEvent3])
+        WaitForMultipleEvents([AwaitedEvent1, AwaitedEvent3])
         self._event_aggregator.publish(AwaitedEvent1())
         self._event_aggregator.publish(AwaitedEvent3())
         mock_consume.assert_called_once()
-
-    def callback(self) -> None:
-        pass
 
 
 class AwaitedEvent1:
@@ -78,8 +75,7 @@ class AwaitedEvent3:
 class WaitForMultipleEvents:
     _event_aggregator = inject.attr(EventAggregator)
 
-    def __init__(self, callback: callable, awaited_events: List[type]) -> None:
-        self.callback = callback
+    def __init__(self, awaited_events: List[type]) -> None:
         self.awaited_events = awaited_events
         self.waiting_for = []
         self.subscribe_to_events()
@@ -108,7 +104,6 @@ class WaitForMultipleEvents:
 
         if not self.waiting_for:
             self._event_aggregator.publish(EventCollection())
-            self.callback()
 
 
 def consumer_constructor(
@@ -140,27 +135,24 @@ class TestWaitForMultipleEventsConsume:
         return mocker.patch.object(self._event_aggregator, "publish", autospec=True)
 
     def test_given_waiting_for_single_event_when_no_event_published(self, mock_publish):
-        subject = WaitForMultipleEvents(self.callback, [AwaitedEvent1])
+        subject = WaitForMultipleEvents([AwaitedEvent1])
         subject.consume(None)
         mock_publish.assert_not_called()
 
     def test_given_waiting_for_single_event_when_event_published(self, mock_publish):
-        subject = WaitForMultipleEvents(self.callback, [AwaitedEvent1])
+        subject = WaitForMultipleEvents([AwaitedEvent1])
         subject.consume(AwaitedEvent1())
         mock_publish.assert_called_once()
 
     def test_given_waiting_for_two_events_when_only_one_event_published(
         self, mock_publish
     ):
-        subject = WaitForMultipleEvents(self.callback, [AwaitedEvent1, AwaitedEvent2])
+        subject = WaitForMultipleEvents([AwaitedEvent1, AwaitedEvent2])
         subject.consume(AwaitedEvent1())
         mock_publish.assert_not_called()
 
     def test_given_waiting_for_two_events_when_all_events_published(self, mock_publish):
-        subject = WaitForMultipleEvents(self.callback, [AwaitedEvent1, AwaitedEvent3])
+        subject = WaitForMultipleEvents([AwaitedEvent1, AwaitedEvent3])
         subject.consume(AwaitedEvent1())
         subject.consume(AwaitedEvent3())
         mock_publish.assert_called_once()
-
-    def callback(self) -> None:
-        pass
