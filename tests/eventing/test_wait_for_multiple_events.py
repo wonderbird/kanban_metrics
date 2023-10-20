@@ -1,6 +1,7 @@
 from typing import List
 
 import inject
+import pytest
 
 from iterative_metrics.eventing.consumer import Consumer
 from iterative_metrics.eventing.event_aggregator import EventAggregator
@@ -124,37 +125,29 @@ class TestWaitForMultipleEventsConsume:
     def teardown_method() -> None:
         inject.clear()
 
-    def test_given_waiting_for_single_event_when_no_event_published(self, mocker):
-        mock_publish = mocker.patch.object(
-            self._event_aggregator, "publish", autospec=True
-        )
+    @pytest.fixture
+    def mock_publish(self, mocker):
+        return mocker.patch.object(self._event_aggregator, "publish", autospec=True)
 
+    def test_given_waiting_for_single_event_when_no_event_published(self, mock_publish):
         subject = WaitForMultipleEvents(self.callback, [AwaitedEvent1])
         subject.consume(None)
 
         mock_publish.assert_not_called()
 
-    def test_given_waiting_for_single_event_when_event_published(self, mocker):
-        mock_publish = mocker.patch.object(
-            self._event_aggregator, "publish", autospec=True
-        )
+    def test_given_waiting_for_single_event_when_event_published(self, mock_publish):
         subject = WaitForMultipleEvents(self.callback, [AwaitedEvent1])
         subject.consume(AwaitedEvent1())
         mock_publish.assert_called_once()
 
-    def test_given_waiting_for_two_events_when_only_one_event_published(self, mocker):
-        mock_publish = mocker.patch.object(
-            self._event_aggregator, "publish", autospec=True
-        )
+    def test_given_waiting_for_two_events_when_only_one_event_published(
+        self, mock_publish
+    ):
         subject = WaitForMultipleEvents(self.callback, [AwaitedEvent1, AwaitedEvent2])
         subject.consume(AwaitedEvent1())
         mock_publish.assert_not_called()
 
-    def test_given_waiting_for_two_events_when_all_events_published(self, mocker):
-        mock_publish = mocker.patch.object(
-            self._event_aggregator, "publish", autospec=True
-        )
-
+    def test_given_waiting_for_two_events_when_all_events_published(self, mock_publish):
         subject = WaitForMultipleEvents(self.callback, [AwaitedEvent1, AwaitedEvent3])
         subject.consume(AwaitedEvent1())
         subject.consume(AwaitedEvent3())
