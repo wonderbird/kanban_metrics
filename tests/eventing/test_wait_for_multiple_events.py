@@ -7,42 +7,12 @@ from iterative_metrics.eventing.consumer import Consumer
 from iterative_metrics.eventing.event_aggregator import EventAggregator
 
 
-class TestWaitForMultipleEventsIntegrationTest:
-    _event_aggregator = EventAggregator()
-
-    def setup_method(self) -> None:
-        inject.clear_and_configure(
-            lambda binder: binder.bind(EventAggregator, self._event_aggregator)
-        )
-
-    @staticmethod
-    def teardown_method() -> None:
-        inject.clear()
-
-    def test_given_waiting_for_single_event_when_event_published(self, mocker):
-        WaitForMultipleEvents(self.callback, [AwaitedEvent1])
-        consumer = EventCollectionConsumer()
-        mock_consume = mocker.patch.object(consumer, "consume", autospec=True)
-        self._event_aggregator.publish(AwaitedEvent1())
-        mock_consume.assert_called_once()
-
-    def test_given_waiting_for_two_events_when_all_events_published(self, mocker):
-        mock_callback = mocker.patch.object(self, "callback", autospec=True)
-        WaitForMultipleEvents(self.callback, [AwaitedEvent1, AwaitedEvent3])
-        self._event_aggregator.publish(AwaitedEvent1())
-        self._event_aggregator.publish(AwaitedEvent3())
-        mock_callback.assert_called_once()
-
-    def callback(self) -> None:
-        pass
-
-
 class EventCollection:
     pass
 
 
 class EventCollectionConsumer(Consumer):
-    # TODO all event_aggregator properties should be private
+    # TODO all event_aggregator properties should be private in all consumers
     _event_aggregator = inject.attr(EventAggregator)
 
     def __init__(self) -> None:
@@ -50,6 +20,46 @@ class EventCollectionConsumer(Consumer):
         self._event_aggregator.subscribe(self)
 
     def consume(self, event: EventCollection) -> None:
+        pass
+
+
+class TestWaitForMultipleEventsIntegrationTest:
+    _event_aggregator = None
+    _consumer = None
+
+    def setup_method(self) -> None:
+        # TODO: Document the following near the EventAggregator class:
+        # EventAggregator and consumers must be initialized for each test.
+        # Otherwise, the both will be shared between tests and the
+        # tests will interfere with each other.
+        self._event_aggregator = EventAggregator()
+
+        inject.clear_and_configure(
+            lambda binder: binder.bind(EventAggregator, self._event_aggregator)
+        )
+
+        self._consumer = EventCollectionConsumer()
+
+    @staticmethod
+    def teardown_method() -> None:
+        inject.clear()
+
+    @pytest.fixture
+    def mock_consume(self, mocker):
+        return mocker.patch.object(self._consumer, "consume", autospec=True)
+
+    def test_given_waiting_for_single_event_when_event_published(self, mock_consume):
+        WaitForMultipleEvents(self.callback, [AwaitedEvent1])
+        self._event_aggregator.publish(AwaitedEvent1())
+        mock_consume.assert_called_once()
+
+    def test_given_waiting_for_two_events_when_all_events_published(self, mock_consume):
+        WaitForMultipleEvents(self.callback, [AwaitedEvent1, AwaitedEvent3])
+        self._event_aggregator.publish(AwaitedEvent1())
+        self._event_aggregator.publish(AwaitedEvent3())
+        mock_consume.assert_called_once()
+
+    def callback(self) -> None:
         pass
 
 
@@ -132,7 +142,6 @@ class TestWaitForMultipleEventsConsume:
     def test_given_waiting_for_single_event_when_no_event_published(self, mock_publish):
         subject = WaitForMultipleEvents(self.callback, [AwaitedEvent1])
         subject.consume(None)
-
         mock_publish.assert_not_called()
 
     def test_given_waiting_for_single_event_when_event_published(self, mock_publish):
