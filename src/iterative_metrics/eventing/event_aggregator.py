@@ -6,6 +6,15 @@ from iterative_metrics.eventing.consumer import Consumer
 class EventAggregator:
     """
     Minimal event aggregator, no thread safety, prevents consumers from being garbage collected.
+
+    Caveats:
+
+    - Once subscribed to the EventAggregator, consumers will not be garbage collected any
+      longer. So do not use the EventAggregator, if your consumers are dynamically created
+      and short-lived.
+
+    - EventAggregator and consumers must be initialized for each test. Otherwise, they will
+      be shared between tests and the tests will interfere with each other.
     """
 
     def __init__(self) -> None:
