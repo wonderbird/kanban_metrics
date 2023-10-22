@@ -26,8 +26,9 @@ class WaitForMultipleEvents:
     _event_aggregator = inject.attr(EventAggregator)
 
     def __init__(self, awaited_events: List[type]) -> None:
-        self.awaited_events = awaited_events
-        self.waiting_for = []
+        self._awaited_events = awaited_events
+        self._waiting_for = []
+        self._events = EventCollection()
         self.subscribe_to_events()
 
     def subscribe_to_events(self):
@@ -43,16 +44,18 @@ class WaitForMultipleEvents:
             },
         )
 
-        for event_type in self.awaited_events:
+        for event_type in self._awaited_events:
             DynamicConsumer(event_type, self)
-            self.waiting_for.append(event_type)
+            self._waiting_for.append(event_type)
 
     def consume(self, event: object) -> None:
-        if event.__class__ in self.waiting_for:
-            self.waiting_for.remove(event.__class__)
+        if event.__class__ in self._waiting_for:
+            self._events.append(event)
+            self._waiting_for.remove(event.__class__)
 
-        if not self.waiting_for:
-            self._event_aggregator.publish(EventCollection())
+        if not self._waiting_for:
+            self._event_aggregator.publish(self._events)
+            # TODO verify that the event is emptied after publishing
 
 
 def consumer_constructor(

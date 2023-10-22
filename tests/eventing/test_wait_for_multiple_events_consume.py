@@ -43,6 +43,9 @@ class TestWaitForMultipleEventsConsume:
         subject.consume(AwaitedEvent1())
         subject.consume(AwaitedEvent3())
         mock_publish.assert_called_once()
+        (actual_event,) = mock_publish.call_args[0]
+        assert type(actual_event.last(AwaitedEvent1)) is AwaitedEvent1
+        assert type(actual_event.last(AwaitedEvent3)) is AwaitedEvent3
 
 
 class AwaitedEvent1:
