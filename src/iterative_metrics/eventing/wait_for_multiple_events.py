@@ -55,7 +55,7 @@ class WaitForMultipleEvents:
 
         if not self._waiting_for:
             self._event_aggregator.publish(self._events)
-            # TODO verify that the event is emptied after publishing
+            # TODO reset self._events after publishing
 
 
 def consumer_constructor(
