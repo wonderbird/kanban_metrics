@@ -13,7 +13,7 @@ class TestEventCollection:
         event_collection = EventCollection()
         event_collection.append(Event1(1))
         last_event = event_collection.last(Event1)
-        assert type(last_event) == Event1
+        assert type(last_event) is Event1
         assert last_event.id == 1
 
     def test_append_given_two_events_of_same_type(self):
@@ -21,7 +21,7 @@ class TestEventCollection:
         event_collection.append(Event1(1))
         event_collection.append(Event1(2))
         last_event = event_collection.last(Event1)
-        assert type(last_event) == Event1
+        assert type(last_event) is Event1
         assert last_event.id == 2
 
     def test_append_given_two_events_of_different_type(self):
@@ -30,19 +30,19 @@ class TestEventCollection:
         event_collection.append(Event2(2))
 
         last_event1 = event_collection.last(Event1)
-        assert type(last_event1) == Event1
+        assert type(last_event1) is Event1
         assert last_event1.id == 1
 
         last_event2 = event_collection.last(Event2)
-        assert type(last_event2) == Event2
+        assert type(last_event2) is Event2
         assert last_event2.id == 2
 
 
 class Event1:
-    def __init__(self, id: int = 0) -> None:
-        self.id = id
+    def __init__(self, value: int = 0) -> None:
+        self.value = value
 
 
 class Event2:
-    def __init__(self, id: int = 0) -> None:
-        self.id = id
+    def __init__(self, value: int = 0) -> None:
+        self.value = value
