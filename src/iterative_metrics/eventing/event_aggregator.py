@@ -8,6 +8,7 @@ class EventAggregator:
     Minimal event aggregator, no thread safety, prevents consumers from being garbage collected.
 
     Caveats:
+    --------
 
     - Once subscribed to the EventAggregator, consumers will not be garbage collected any
       longer. So do not use the EventAggregator, if your consumers are dynamically created
