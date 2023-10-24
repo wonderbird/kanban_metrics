@@ -47,6 +47,32 @@ class TestWaitForMultipleEventsConsume:
         assert type(actual_event.last(AwaitedEvent1)) is AwaitedEvent1
         assert type(actual_event.last(AwaitedEvent3)) is AwaitedEvent3
 
+    def test_given_waiting_for_two_events_and_all_events_published_when_another_event_published(
+        self, mock_publish
+    ):
+        subject = WaitForMultipleEvents([AwaitedEvent1, AwaitedEvent2])
+        subject.consume(AwaitedEvent1())
+        subject.consume(AwaitedEvent2())
+
+        # publish should be called after both events have been consumed
+        mock_publish.assert_called_once()
+
+        subject.consume(AwaitedEvent1())
+
+        # publish may not be called after a single event has been consumed
+        mock_publish.assert_called_once()
+
+    def test_given_waiting_for_two_events_when_all_events_published_twice(
+        self, mock_publish
+    ):
+        subject = WaitForMultipleEvents([AwaitedEvent1, AwaitedEvent2])
+        subject.consume(AwaitedEvent1())
+        subject.consume(AwaitedEvent2())
+        subject.consume(AwaitedEvent1())
+        subject.consume(AwaitedEvent2())
+
+        assert mock_publish.call_count == 2
+
 
 class AwaitedEvent1:
     pass

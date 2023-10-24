@@ -46,7 +46,8 @@ class WaitForMultipleEvents:
 
         for event_type in self._awaited_events:
             DynamicConsumer(event_type, self)
-            self._waiting_for.append(event_type)
+
+        self._waiting_for = self._awaited_events.copy()
 
     def consume(self, event: object) -> None:
         if event.__class__ in self._waiting_for:
@@ -55,7 +56,8 @@ class WaitForMultipleEvents:
 
         if not self._waiting_for:
             self._event_aggregator.publish(self._events)
-            # TODO reset self._events after publishing
+            self._waiting_for = self._awaited_events.copy()
+            self._events = EventCollection()
 
 
 def consumer_constructor(
