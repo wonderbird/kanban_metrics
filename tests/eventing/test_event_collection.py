@@ -37,6 +37,15 @@ class TestEventCollection:
         assert type(last_event2) is Event2
         assert last_event2.value == 2
 
+    def test_contains_given_no_events_received(self):
+        event_collection = EventCollection()
+        assert event_collection.contains(Event1) is False
+
+    def test_contains_given_one_event(self):
+        event_collection = EventCollection()
+        event_collection.append(Event1(1))
+        assert event_collection.contains(Event1) is True
+
 
 class Event1:
     def __init__(self, value: int = 0) -> None:

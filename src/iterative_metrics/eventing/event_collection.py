@@ -20,3 +20,7 @@ class EventCollection:
 
         type_name = event_type.__name__
         return self._events[type_name]
+
+    def contains(self, event_type: type) -> bool:
+        type_name = event_type.__name__
+        return type_name in self._events
