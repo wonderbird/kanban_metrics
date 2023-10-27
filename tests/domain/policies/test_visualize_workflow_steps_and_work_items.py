@@ -17,6 +17,7 @@ from iterative_metrics.domain.work_items import WorkItems
 from iterative_metrics.domain.workflow_step import WorkflowStep
 from iterative_metrics.domain.workflow_steps import WorkflowSteps
 from iterative_metrics.eventing.event_aggregator import EventAggregator
+from iterative_metrics.eventing.wait_for_multiple_events import WaitForMultipleEvents
 
 
 class TestVisualizeWorkflowStepsAndWorkItems:
@@ -34,6 +35,9 @@ class TestVisualizeWorkflowStepsAndWorkItems:
     def test_(self, mocker):
         mock_debug_show = mocker.patch(
             "iterative_metrics.domain.policies.visualize_workflow_steps_and_work_items.debug_show_rectangles_in_image"
+        )
+        WaitForMultipleEvents(
+            [BoardScreenshotUpdated, PotentialWorkflowStepsFound, WorkItemsFound]
         )
         VisualizeWorkflowStepsAndWorkItems()
 

@@ -12,9 +12,16 @@ from iterative_metrics.adapters.inbound.cumulative_flow_diagram import (
 from iterative_metrics.adapters.outbound.board_screenshot_file import (
     BoardScreenshotFile,
 )
+from iterative_metrics.domain.events.board_screenshot_updated import (
+    BoardScreenshotUpdated,
+)
 from iterative_metrics.domain.events.board_status_determined import (
     BoardStatusDetermined,
 )
+from iterative_metrics.domain.events.potential_workflow_steps_found import (
+    PotentialWorkflowStepsFound,
+)
+from iterative_metrics.domain.events.work_items_found import WorkItemsFound
 from iterative_metrics.domain.policies.determine_board_status import (
     DetermineBoardStatus,
 )
@@ -29,6 +36,7 @@ from iterative_metrics.domain.ports.board_screenshot_storage import (
     BoardScreenshotStorage,
 )
 from iterative_metrics.eventing.event_aggregator import EventAggregator
+from iterative_metrics.eventing.wait_for_multiple_events import WaitForMultipleEvents
 
 BOARD_SCREENSHOT_PATH = (
     Path(__file__).parent.parent.parent.resolve() / "client-data" / "kanban_board.png"
@@ -64,8 +72,13 @@ def configure_event_handling_policies():
     they will not be garbage collected.
     """
     ProcessBoardScreenshot()
+    # ConsiderTeamBoardCustomization()
+    # WaitForMultipleEvents([WorkItemsFound, WorkflowStepsFound])
     DetermineBoardStatus()
     LogEvent(BoardStatusDetermined)
+    WaitForMultipleEvents(
+        [BoardScreenshotUpdated, PotentialWorkflowStepsFound, WorkItemsFound]
+    )
     VisualizeWorkflowStepsAndWorkItems()
 
 

@@ -24,11 +24,15 @@ class VisualizeWorkflowStepsAndWorkItems(Consumer):
     def __init__(self) -> None:
         super().__init__(EventCollection)
         self._event_aggregator.subscribe(self)
-        WaitForMultipleEvents(
-            [BoardScreenshotUpdated, PotentialWorkflowStepsFound, WorkItemsFound]
-        )
 
     def consume(self, event: EventCollection) -> None:
+        if (
+            not event.contains(BoardScreenshotUpdated)
+            or not event.contains(PotentialWorkflowStepsFound)
+            or not event.contains(WorkItemsFound)
+        ):
+            return
+
         screenshot = event.last(BoardScreenshotUpdated).screenshot
         workflow_steps = event.last(PotentialWorkflowStepsFound).workflow_steps
         work_items = event.last(WorkItemsFound).work_items
