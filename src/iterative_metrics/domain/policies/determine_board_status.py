@@ -29,6 +29,12 @@ class DetermineBoardStatus(Consumer):
         self._event_aggregator.subscribe(self)
 
     def consume(self, event: EventCollection) -> None:
+        if not (
+            event.contains(WorkItemsFound)
+            and event.contains(PotentialWorkflowStepsFound)
+        ):
+            return
+
         work_items = event.last(WorkItemsFound).work_items
         workflow_steps = event.last(PotentialWorkflowStepsFound).workflow_steps
 

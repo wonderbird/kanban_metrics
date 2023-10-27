@@ -22,6 +22,10 @@ from iterative_metrics.domain.events.potential_workflow_steps_found import (
     PotentialWorkflowStepsFound,
 )
 from iterative_metrics.domain.events.work_items_found import WorkItemsFound
+from iterative_metrics.domain.events.workflow_steps_found import WorkflowStepsFound
+from iterative_metrics.domain.policies.consider_team_board_customization import (
+    ConsiderTeamBoardCustomization,
+)
 from iterative_metrics.domain.policies.determine_board_status import (
     DetermineBoardStatus,
 )
@@ -72,8 +76,8 @@ def configure_event_handling_policies():
     they will not be garbage collected.
     """
     ProcessBoardScreenshot()
-    # ConsiderTeamBoardCustomization()
-    # WaitForMultipleEvents([WorkItemsFound, WorkflowStepsFound])
+    WaitForMultipleEvents([WorkItemsFound, WorkflowStepsFound])
+    ConsiderTeamBoardCustomization()
     DetermineBoardStatus()
     LogEvent(BoardStatusDetermined)
     WaitForMultipleEvents(
