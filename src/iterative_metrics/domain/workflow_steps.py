@@ -1,4 +1,4 @@
-from typing import Iterator, List
+from typing import Iterator, List, Any
 
 import cv2
 import numpy as np
@@ -16,6 +16,9 @@ class WorkflowSteps:
 
     def __iter__(self) -> Iterator[WorkflowStep]:
         return iter(self.workflow_steps)
+
+    def __getitem__(self, index: Any) -> Any:
+        return self.workflow_steps[index]
 
     @property
     def count(self) -> int:
