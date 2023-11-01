@@ -76,13 +76,16 @@ def configure_event_handling_policies():
     they will not be garbage collected.
     """
     ProcessBoardScreenshot()
-    WaitForMultipleEvents([WorkItemsFound, WorkflowStepsFound])
-    ConsiderTeamBoardCustomization()
-    DetermineBoardStatus()
-    LogEvent(BoardStatusDetermined)
+
     WaitForMultipleEvents(
         [BoardScreenshotUpdated, PotentialWorkflowStepsFound, WorkItemsFound]
     )
+    ConsiderTeamBoardCustomization()
+
+    WaitForMultipleEvents([WorkItemsFound, WorkflowStepsFound])
+    DetermineBoardStatus()
+    LogEvent(BoardStatusDetermined)
+
     VisualizeWorkflowStepsAndWorkItems()
 
 
