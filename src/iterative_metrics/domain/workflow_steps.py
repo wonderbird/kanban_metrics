@@ -82,7 +82,10 @@ class WorkflowSteps:
         smallest_rectangle = work_items[0].bounding_rectangle
         item_indices_to_keep = []
         for index, workflow_step in enumerate(self.workflow_steps):
-            if workflow_step.bounding_rectangle.height > smallest_rectangle.height:
+            if (
+                workflow_step.bounding_rectangle.height > smallest_rectangle.height
+                and workflow_step.bounding_rectangle.width > smallest_rectangle.width
+            ):
                 item_indices_to_keep.append(index)
 
         self.workflow_steps = [
