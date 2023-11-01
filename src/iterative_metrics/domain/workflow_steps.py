@@ -76,4 +76,15 @@ class WorkflowSteps:
             workflow_step.associate_with(work_items)
 
     def remove_areas_smaller_than_a_work_item(self, work_items: WorkItems) -> None:
-        pass
+        if work_items.count == 0:
+            return
+
+        smallest_rectangle = work_items[0].bounding_rectangle
+        item_indices_to_keep = []
+        for index, workflow_step in enumerate(self.workflow_steps):
+            if workflow_step.bounding_rectangle.height > smallest_rectangle.height:
+                item_indices_to_keep.append(index)
+
+        self.workflow_steps = [
+            self.workflow_steps[index] for index in item_indices_to_keep
+        ]

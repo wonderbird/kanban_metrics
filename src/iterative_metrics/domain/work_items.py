@@ -1,5 +1,5 @@
 from collections.abc import Iterator
-from typing import List
+from typing import List, Any
 
 import cv2
 import numpy as np
@@ -13,6 +13,9 @@ from iterative_metrics.domain.work_item import WorkItem
 class WorkItems:
     def __init__(self, work_items: List[WorkItem]) -> None:
         self.work_items = work_items
+
+    def __getitem__(self, index: Any) -> Any:
+        return self.work_items[index]
 
     @staticmethod
     def parse_screenshot(screenshot: np.ndarray) -> "WorkItems":
