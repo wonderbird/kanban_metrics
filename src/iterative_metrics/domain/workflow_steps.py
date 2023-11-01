@@ -74,3 +74,6 @@ class WorkflowSteps:
         """Map each work item to the workflow step it belongs to."""
         for workflow_step in self.workflow_steps:
             workflow_step.associate_with(work_items)
+
+    def remove_areas_smaller_than_a_work_item(self, work_items: WorkItems) -> None:
+        pass
