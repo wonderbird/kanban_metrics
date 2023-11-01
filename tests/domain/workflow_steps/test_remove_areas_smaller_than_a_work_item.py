@@ -77,18 +77,18 @@ def test_given_some_workflow_steps_and_single_work_item_height_larger_than_heigh
 
 
 def test_given_some_workflow_steps_have_too_small_height():
-    work_items = WorkItems([WorkItem(Rectangle(0, 0, 100, 100))])
+    work_items = WorkItems([WorkItem(Rectangle(0, 0, 100, 200))])
     subject = WorkflowSteps(
         [
-            WorkflowStep(Rectangle(0, 0, 101, 10)),
             WorkflowStep(Rectangle(0, 0, 101, 101)),
+            WorkflowStep(Rectangle(0, 0, 101, 201)),
         ],
     )
 
     subject.remove_areas_smaller_than_a_work_item(work_items)
 
     assert subject.count == 1
-    assert subject[0].bounding_rectangle.height == 101
+    assert subject[0].bounding_rectangle.height == 201
 
 
 def test_given_some_workflow_steps_have_too_small_width():
@@ -104,3 +104,37 @@ def test_given_some_workflow_steps_have_too_small_width():
 
     assert subject.count == 1
     assert subject[0].bounding_rectangle.width == 101
+
+
+def test_given_some_workflow_steps_width_smaller_than_second_work_item():
+    work_items = WorkItems(
+        [WorkItem(Rectangle(0, 0, 0, 0)), WorkItem(Rectangle(0, 0, 100, 200))]
+    )
+    subject = WorkflowSteps(
+        [
+            WorkflowStep(Rectangle(0, 0, 10, 201)),
+            WorkflowStep(Rectangle(0, 0, 101, 201)),
+        ],
+    )
+
+    subject.remove_areas_smaller_than_a_work_item(work_items)
+
+    assert subject.count == 1
+    assert subject[0].bounding_rectangle.width == 101
+
+
+def test_given_some_workflow_steps_height_smaller_than_second_work_item():
+    work_items = WorkItems(
+        [WorkItem(Rectangle(0, 0, 0, 0)), WorkItem(Rectangle(0, 0, 100, 200))]
+    )
+    subject = WorkflowSteps(
+        [
+            WorkflowStep(Rectangle(0, 0, 101, 101)),
+            WorkflowStep(Rectangle(0, 0, 101, 201)),
+        ],
+    )
+
+    subject.remove_areas_smaller_than_a_work_item(work_items)
+
+    assert subject.count == 1
+    assert subject[0].bounding_rectangle.height == 201
