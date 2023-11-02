@@ -5,7 +5,7 @@ import pytest
 
 from iterative_metrics.domain.work_items import WorkItems
 
-FIXTURE_DIR = Path(__file__).parent.parent.resolve() / "data"
+FIXTURE_DIR = Path(__file__).parent.parent.parent.resolve() / "data"
 
 
 @pytest.mark.parametrize(
@@ -19,7 +19,7 @@ FIXTURE_DIR = Path(__file__).parent.parent.resolve() / "data"
         (72, "full_board_width_1490px_height_1784px_resolution_144dpi.png"),
     ],
 )
-def test_work_items_parse_screenshot(expected, filename):
+def test_(expected, filename):
     image = cv2.imread(str(FIXTURE_DIR / filename))
     work_items = WorkItems.parse_screenshot(image)
     assert work_items.count == expected
