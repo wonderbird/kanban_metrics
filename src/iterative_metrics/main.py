@@ -77,15 +77,13 @@ def configure_event_handling_policies():
     """
     ProcessBoardScreenshot()
 
-    WaitForMultipleEvents(
-        [BoardScreenshotUpdated, PotentialWorkflowStepsFound, WorkItemsFound]
-    )
+    WaitForMultipleEvents([PotentialWorkflowStepsFound, WorkItemsFound])
     ConsiderTeamBoardCustomization()
 
-    WaitForMultipleEvents([WorkItemsFound, WorkflowStepsFound])
     DetermineBoardStatus()
     LogEvent(BoardStatusDetermined)
 
+    WaitForMultipleEvents([BoardScreenshotUpdated, WorkflowStepsFound, WorkItemsFound])
     VisualizeWorkflowStepsAndWorkItems()
 
 

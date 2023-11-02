@@ -10,10 +10,10 @@ from iterative_metrics.domain.events.potential_workflow_steps_found import (
     PotentialWorkflowStepsFound,
 )
 from iterative_metrics.domain.events.work_items_found import WorkItemsFound
+from iterative_metrics.domain.events.workflow_steps_found import WorkflowStepsFound
 from iterative_metrics.eventing.consumer import Consumer
 from iterative_metrics.eventing.event_aggregator import EventAggregator
 from iterative_metrics.eventing.event_collection import EventCollection
-from iterative_metrics.eventing.wait_for_multiple_events import WaitForMultipleEvents
 
 
 class VisualizeWorkflowStepsAndWorkItems(Consumer):
@@ -28,13 +28,13 @@ class VisualizeWorkflowStepsAndWorkItems(Consumer):
     def consume(self, event: EventCollection) -> None:
         if (
             not event.contains(BoardScreenshotUpdated)
-            or not event.contains(PotentialWorkflowStepsFound)
+            or not event.contains(WorkflowStepsFound)
             or not event.contains(WorkItemsFound)
         ):
             return
 
         screenshot = event.last(BoardScreenshotUpdated).screenshot
-        workflow_steps = event.last(PotentialWorkflowStepsFound).workflow_steps
+        workflow_steps = event.last(WorkflowStepsFound).workflow_steps
         work_items = event.last(WorkItemsFound).work_items
 
         rectangles = [work_item.bounding_rectangle for work_item in work_items]

@@ -29,7 +29,7 @@ class ConsiderTeamBoardCustomization(Consumer):
         work_items = event.last(WorkItemsFound).work_items
         workflow_steps.remove_areas_smaller_than_a_work_item(work_items)
 
-        used_workflow_step_indices = [1, 2, 4, 5, 7, 8, 9, 10, 11]
+        used_workflow_step_indices = [1, 2, 4, 5, 6, 7, 8, 9, 10]
         filtered_workflow_steps = [
             workflow_steps[index] for index in used_workflow_step_indices
         ]
