@@ -9,5 +9,9 @@ class WorkItem:
         return f"WorkItem(bounding_rectangle={self.bounding_rectangle})"
 
     @property
+    def height(self) -> int:
+        return self.bounding_rectangle.height
+
+    @property
     def width(self) -> int:
         return self.bounding_rectangle.width

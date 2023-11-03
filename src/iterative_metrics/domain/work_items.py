@@ -27,10 +27,7 @@ class WorkItems:
         if len(self.work_items) == 0:
             return 0
 
-        # TODO cure feature envy
-        return max(
-            [work_item.bounding_rectangle.height for work_item in self.work_items]
-        )
+        return max([work_item.height for work_item in self.work_items])
 
     @staticmethod
     def parse_screenshot(screenshot: np.ndarray) -> "WorkItems":
