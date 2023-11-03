@@ -9,7 +9,7 @@ This is a prototype application with the following use cases:
 
 ## Acknowledgements
 
-Thanks to [Michael Mahlberg](https://github.com/michaelmahlberg) for giving the original idea.
+Thanks to [Falk Kühnel](https://github.com/agiledivider) and [Michael Mahlberg](https://github.com/michaelmahlberg) for giving the original idea.
 
 Many thanks to [JetBrains](https://www.jetbrains.com/?from=malimo) who provide
 an [Open Source License](https://www.jetbrains.com/community/opensource/) for this project ❤️.
