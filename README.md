@@ -2,12 +2,40 @@
 
 [![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
 
-Use cases:
+This is a prototype application with the following use cases:
 
-- Count number of work items on our team kanban board
+- Count number of work items per workflow step of our team kanban board
 - Create a cumulative flow diagram for our team metrics
 
+## Acknowledgements
+
+Thanks to [Michael Mahlberg](https://github.com/michaelmahlberg) for giving the original idea.
+
+Many thanks to [JetBrains](https://www.jetbrains.com/?from=malimo) who provide
+an [Open Source License](https://www.jetbrains.com/community/opensource/) for this project ❤️.
+
+## Status
+
+This project is a learning project. At the moment I have switched my focus and the project is sleeping. You are always welcome to send a message to me, if you are interested and have questions.
+
+The green checkmarks in the diagram [Design level event storming](./docs/04_design_level_event_storming.drawio.png) show where I have stopped.
+
+The next step is to sort the workflow steps so that they are always row by row, from right to left. You might want to finish the consistent rules inside the "Consider team board customization" policy first (see section Design Documentation below).
+
+## Glossary and Concepts
+
+We consider our team being a "production system". Our "products" are represented by "work items". The "board" visualizes the status of our "production system", i.e. which work items are currently in which workflow step of the value chain?
+
 ![model.drawio.png](docs/model.drawio.png)
+
+## Design Documentation
+
+In the [docs](./docs) folder you can find drawings showing the application design:
+
+- [Big picture event storming](./docs/01_big_picture_event_storming.drawio.png) depicts the overarching workflow of gathering metrics and deriving a cumulative flow diagram
+- [Design level event storming](./docs/04_design_level_event_storming.drawio.png) adds details helping to design the application
+
+The remaining diagrams have been created on the way and may add additional insights.
 
 ## Usage Guide
 
