@@ -7,3 +7,7 @@ class WorkItem:
 
     def __repr__(self):
         return f"WorkItem(bounding_rectangle={self.bounding_rectangle})"
+
+    @property
+    def width(self) -> int:
+        return self.bounding_rectangle.width
