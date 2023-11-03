@@ -26,6 +26,15 @@ class WorkItems:
             [work_item.bounding_rectangle.width for work_item in self.work_items]
         )
 
+    def calculate_largest_height(self) -> int:
+        if len(self.work_items) == 0:
+            return 0
+
+        # TODO cure feature envy
+        return max(
+            [work_item.bounding_rectangle.height for work_item in self.work_items]
+        )
+
     @staticmethod
     def parse_screenshot(screenshot: np.ndarray) -> "WorkItems":
         """Identify work items in board screenshot."""

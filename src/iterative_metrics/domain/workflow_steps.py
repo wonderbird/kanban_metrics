@@ -79,16 +79,10 @@ class WorkflowSteps:
         if work_items.count == 0:
             return
 
-        # TODO cure feature envy
-        greatest_height = work_items[0].bounding_rectangle.height
-        for work_item in work_items:
-            if work_item.bounding_rectangle.height > greatest_height:
-                greatest_height = work_item.bounding_rectangle.height
-
         item_indices_to_keep = []
         for index, workflow_step in enumerate(self.workflow_steps):
             if (
-                workflow_step.bounding_rectangle.height > greatest_height
+                workflow_step.bounding_rectangle.height > work_items.calculate_largest_height()
                 and workflow_step.bounding_rectangle.width
                 > work_items.calculate_largest_width()
             ):
